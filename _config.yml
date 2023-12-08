@@ -1,9 +1,7 @@
 title: Good theme
-description:
-    Welcome
-    To this world
-    \n\
-    hello
+description: 
+    "Welcome To this world\n\
+    hello"
 show_downloads: false
 google_analytics:
 theme: jekyll-theme-cayman
