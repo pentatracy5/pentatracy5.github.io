@@ -6,7 +6,7 @@ Text can be **bold**, _italic_, or ~~strikethrough~~.
 
 Good Theme
 
-[Link to another page](./another-page1.html).
+[Link to another page](./another-page2.html).
 
 There should be whitespace between paragraphs.
 
