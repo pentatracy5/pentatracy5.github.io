@@ -1,3 +1,9 @@
+---
+layout: default
+title: Numerical Methods
+description: numerical methods
+---
+
 # 第1章 数值分析与科学计算引论(1)
 
 ## 1.1 数值分析的对象、作用与特点(1)
