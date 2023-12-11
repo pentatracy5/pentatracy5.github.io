@@ -6,7 +6,7 @@ Text can be **bold**, _italic_, or ~~strikethrough~~.
 
 Good Theme
 
-[Link to another page](./numerical methods/another-page2.html).
+[Link to another page](./numerical%20methods/another-page2.html).
 
 There should be whitespace between paragraphs.
 
