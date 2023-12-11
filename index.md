@@ -2,4 +2,4 @@
 layout: default
 ---
 
-[Numerical Methods](./numerical%20methods/index.html).
+[Numerical Methods](./numerical_methods/index.html).
