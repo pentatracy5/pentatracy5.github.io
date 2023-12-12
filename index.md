@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Hui Lu
+title: 卢辉
 ---
 
-[Numerical Methods](./numerical_methods/index.html).
+[数值计算](./numerical_methods/index.html).
