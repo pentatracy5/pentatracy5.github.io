@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Numerical Methods
+title: 数值计算
 ---
 
 # 第1章 数值分析与科学计算引论(1)
