@@ -23,23 +23,23 @@ title: 数值计算
 * * *
 在实际计算中，由于真值 $ x $ 总是不知道的，通常取
 
-$ e_r^* = \frac { e^* } { x^* } = \frac { x^* - x } { x^* } $
+<center>$ e_r^* = \frac { e^* } { x^* } = \frac { x^* - x } { x^* } $</center>
 
 条件是 $ e_r^* = \frac { e^* } { x^* } $ 较小，此时
 
-$ \frac { e^* } { x } - \frac { e^* } { x^* } = \frac { (\frac { e^* } { x^* })^2 } { 1 - \frac { e^* } { x^* } } $
+<center>$ \frac { e^* } { x } - \frac { e^* } { x^* } = \frac { (\frac { e^* } { x^* })^2 } { 1 - \frac { e^* } { x^* } } $</center>
 
 是 $ e_r^* $ 的平方项级，故可忽略不计。
 * * *
-定义：相对误差的绝对值上界叫做**相对误差限**，记做 $ \varepsilon_r^* $，即 $ \varepsilon_r^* = \frac { \varepsilon^* } { |x^*| } $
+定义：相对误差的绝对值上界叫做**相对误差限**，记做 $ \varepsilon_r^* $，即 $ \varepsilon_r^* = \frac { \varepsilon^* } { | x^* | } $
 * * *
 定义：若近似值 $ x^* $ 的误差限是某一位的半个单位，该位到 $ x^* $ 的第一个非零数字共有 $ n $ 位，就说 $ x^* $ 有 $ n $ 位**有效数字**。它可表示为
 
-$ x^* = \pm 10^m * (a_1 + a_2 * 10^{-1} + ... + a_n * 10^{-(n-1)}) $
+<center>$ x^* = \pm 10^m * (a_1 + a_2 * 10^{-1} + ... + a_n * 10^{-(n-1)}) $</center>
 
 其中 $ a_i(i = 1, 2, ... , n) $ 0到9中的一个数字， $ a_1 \neq 0 $ ， $ m $ 为整数，且
 
-$ | x - x^* | \leqslant \frac 1 2 * 10^{m - n + 1} $
+<center>$ | x - x^* | \leqslant \frac 1 2 * 10^{m - n + 1} $</center>
 * * *
 
 # 第1章 数值分析与科学计算引论(1)
