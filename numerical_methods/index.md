@@ -1,3 +1,15 @@
+<head>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            inlineMath: [['$','$']]
+            }
+        });
+    </script>
+</head>
+
 ---
 layout: default
 title: 数值计算
@@ -11,7 +23,7 @@ title: 数值计算
 * * *
 定义：原始数据在计算机上表示时会产生误差，计算过程又可能产生新的误差，这种误差称为**舍入误差**。（关注）
 * * *
-定义：设 $x$ 为准确值， $x^{*}$ 为 $x$ 的一个近似值，称 $e^*=x^*-x$ 为近似值的**绝对误差**，简称**误差**。
+定义：设 $x$ 为准确值， $x^*$ 为 $x$ 的一个近似值，称 $e^*=x^*-x$ 为近似值的**绝对误差**，简称**误差**。
 * * *
 定义：误差绝对值的一个上界 $\varepsilon^*$ 叫做近似值的**误差限**。
 * * *
