@@ -1,3 +1,8 @@
+---
+layout: default
+title: 数值计算
+---
+
 <head>
     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
     <script type="text/x-mathjax-config">
@@ -9,11 +14,6 @@
         });
     </script>
 </head>
-
----
-layout: default
-title: 数值计算
----
 
 定义：数学模型与实际问题之间出现的误差称为**模型误差**。（不关注）
 * * *
