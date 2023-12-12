@@ -495,4 +495,4 @@ title: 数值计算
 
 参考文献(325)
 
-[back](./../index.html)
+[上一级](./../index.html)
