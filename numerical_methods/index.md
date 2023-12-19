@@ -61,50 +61,7 @@ title: 数值计算
 
 <center>$ \varepsilon ( x_1^* x_2^* ) \leqslant | x_1^* | \varepsilon ( x_2^* ) + | x_2^* | \varepsilon ( x_1^* ) + \varepsilon ( x_1^* ) \varepsilon ( x_2^* ) $</center>
 
-<center>$ \varepsilon ( \frac { x_1^* } { x_2^* } ) \leqslant \frac {| x_1^* | \varepsilon ( x_2^* ) + | x_2^* | \varepsilon ( x_1^* )} { { | x_2^* | }^2 } \frac {1} { 1 - \varepsilon_r ( x_2^* ) }, x_2 \neq 0, x_2^* \neq 0, \varepsilon_r ( x_2^* ) < 1 $</center>
 
-由所得的误差限可得，相对误差限分别满足不等式
-
-<center>$ \varepsilon_r ( x_1^* \pm x_2^* ) \leqslant \frac {\varepsilon ( x_1^* ) + \varepsilon ( x_2^* )} {| x_1^* + x_2^* |} $</center>
-
-<center>$ \varepsilon_r ( x_1^* x_2^* ) \leqslant \varepsilon_r ( x_1^* ) + \varepsilon_r ( x_2^* ) + \varepsilon_r ( x_1^* ) \varepsilon_r ( x_2^* ) $</center>
-
-<center>$ \varepsilon ( \frac { x_1^* } { x_2^* } ) \leqslant \frac {\varepsilon_r ( x_1^* ) + \varepsilon_r ( x_2^* )} { 1 - \varepsilon_r ( x_2^* ) } $</center>
-
-在实践中，当近似值足够好的时候，有
-
-<center>$ \varepsilon ( x_1^* ) \varepsilon ( x_2^* ) \approx 0 $</center>
-
-<center>$ \varepsilon_r ( x_1^* ) \varepsilon_r ( x_2^* ) \approx 0 $</center>
-
-<center>$ 1 - \varepsilon_r ( x_2^* ) \approx 1 $</center>
-
-从而有
-
-<center>$ \varepsilon ( x_1^* x_2^* ) \leqslant | x_1^* | \varepsilon ( x_2^* ) + | x_2^* | \varepsilon ( x_1^* ) $</center>
-
-<center>$ \varepsilon ( \frac { x_1^* } { x_2^* } ) \leqslant \frac {| x_1^* | \varepsilon ( x_2^* ) + | x_2^* |\varepsilon ( x_1^* )} {{| x_2^* |}^2} $</center>
-
-<center>$ \varepsilon_r ( x_1^* x_2^* ) \leqslant \varepsilon_r ( x_1^* ) + \varepsilon_r ( x_2^* ) $</center>
-
-<center>$ \varepsilon ( \frac { x_1^* } { x_2^* } ) \leqslant \varepsilon_r ( x_1^* ) + \varepsilon_r ( x_2^* ) $</center>
-* * *
-设$ f(x) $是一元可微函数，$ x $的近似值为$ x^* $，以$ f( x^* ) $近似$ f(x) $，其误差界记做$ \varepsilon(f( x^* )) $。由泰勒展开有
-
-<center>$ | f(x) - f( x^* ) | \leqslant | f'( x^* ) | \varepsilon( x^* ) + \frac {| f''( \xi ) |} {2} {\varepsilon( x^* )}^2, \xi 介于 x 与 x^* 之间 $</center>
-
-假定$ \frac {| f''( \xi ) |} {2} {\varepsilon( x^* )}^2 $可忽略，则
-
-<center>$ \varepsilon(f( x^* )) \approx | f'( x^* ) | \varepsilon( x^* ) $</center>
-
-当$ f $为多元函数时，例如计算$ A = f(x_1, x_2, ..., x_n) $。如果$ x_1, x_2, ..., x_n $的近似值为$ x_1^*, x_2^*, ..., x_n^* $，则$ A $的近似值为$ A^* = f( x_1^*, x_2^*, ..., x_n^* ) $。由泰勒展开得函数值$ A^* $的误差限
-
-<center>$ \varepsilon( A^* ) \approx \sum_{k=1}^{n} | \frac {\partial f( x_1^*, x_2^*, ..., x_n^* )} {\partial x_k} | \varepsilon( x_k^* ) $</center>
-
-$ A^* $的相对误差限
-
-<center>$ \varepsilon_r( A^* ) \approx \sum_{k=1}^{n} | \frac {\partial f( x_1^*, x_2^*, ..., x_n^* )} {\partial x_k} | \frac {\varepsilon( x_k^* )} {| A^* |} $</center>
-* * *
 
 # 第1章 数值分析与科学计算引论(1)
 
