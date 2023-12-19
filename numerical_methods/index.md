@@ -97,13 +97,13 @@ title: 数值计算
 
 <center>$ \varepsilon (f( x^* )) \approx | f'( x^* ) | \varepsilon ( x^* ) $</center>
 
-当 $ f $ 为多元函数时，例如计算 $ A = f(x_1, x_2, ..., x_n) $ 。如果 $ x_1, x_2, ..., x_n $ 的近似值为 $ x_1^*, x_2^*, ..., x_n^* $ ，则 $ A $ 的近似值为 $ A^* = f( x_1^*, x_2^*, ..., x_n^* ) $ 。由泰勒展开得函数值 $ A^* $ 的误差限
+当 $ f $ 为多元函数时，例如计算 $ A = f(x_1, x_2, ..., x_n) $ 。如果 $ x_1, x_2, ..., x_n $ 的近似值为 $ x_1^* , x_2^* , ..., x_n^* $ ，则 $ A $ 的近似值为 $ A^* = f( x_1^* , x_2^* , ..., x_n^* ) $ 。由泰勒展开得函数值 $ A^* $ 的误差限
 
-<center>$ \varepsilon ( A^* ) \approx \sum_{k=1}^{n} | \frac { \partial f( x_1^*, x_2^*, ..., x_n^* ) } { \partial x_k } | \varepsilon ( x_k^* ) $</center>
+<center>$ \varepsilon ( A^* ) \approx \sum_{k=1}^{n} | \frac { \partial f( x_1^* , x_2^* , ..., x_n^* ) } { \partial x_k } | \varepsilon ( x_k^* ) $</center>
 
 $ A^* $ 的相对误差限
 
-<center>$ \varepsilon_r ( A^* ) \approx \sum_{k=1}^{n} | \frac { \partial f( x_1^*, x_2^*, ..., x_n^* ) } { \partial x_k } | \frac { \varepsilon ( x_k^* ) } { | A^* | } $</center>
+<center>$ \varepsilon_r ( A^* ) \approx \sum_{k=1}^{n} | \frac { \partial f( x_1^* , x_2^* , ..., x_n^* ) } { \partial x_k } | \frac { \varepsilon ( x_k^* ) } { | A^* | } $</center>
 * * *
 
 # 第1章 数值分析与科学计算引论(1)
