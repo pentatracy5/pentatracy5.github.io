@@ -69,7 +69,7 @@ title: 数值计算
 
 <center>$ \varepsilon_r ( x_1^* x_2^* ) \leqslant \varepsilon_r ( x_1^* ) + \varepsilon_r ( x_2^* ) + \varepsilon_r ( x_1^* ) \varepsilon_r ( x_2^* ) $</center>
 
-<center>$ \varepsilon ( \frac { x_1^* } { x_2^* } ) \leqslant \frac {\varepsilon_r ( x_1^* ) + \varepsilon_r ( x_2^* )} { 1 - \varepsilon_r ( x_2^* ) } $</center>
+<center>$ \varepsilon_r ( \frac { x_1^* } { x_2^* } ) \leqslant \frac {\varepsilon_r ( x_1^* ) + \varepsilon_r ( x_2^* )} { 1 - \varepsilon_r ( x_2^* ) } $</center>
 
 在实践中，当近似值足够好的时候，有
 
