@@ -87,7 +87,7 @@ title: 数值计算
 
 <center>$ \varepsilon_r ( x_1^* x_2^* ) \leqslant \varepsilon_r ( x_1^* ) + \varepsilon_r ( x_2^* ) $</center>
 
-<center>$ \varepsilon ( \frac { x_1^* } { x_2^* } ) \leqslant \varepsilon_r ( x_1^* ) + \varepsilon_r ( x_2^* ) $</center>
+<center>$ \varepsilon_r ( \frac { x_1^* } { x_2^* } ) \leqslant \varepsilon_r ( x_1^* ) + \varepsilon_r ( x_2^* ) $</center>
 * * *
 设$ f(x) $是一元可微函数，$ x $的近似值为$ x^* $，以$ f( x^* ) $近似$ f(x) $，其误差界记做$ \varepsilon (f( x^* )) $。由泰勒展开有
 
