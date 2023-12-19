@@ -3,7 +3,7 @@ layout: default
 title: 数值计算
 ---
 
-[数值计算的误差](./numerical_methods/error/index.html)
+[数值计算的误差](./error/index.html)
 
 ## 1.3 误差定性分析与避免误差危害(8)
 
