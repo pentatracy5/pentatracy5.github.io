@@ -57,6 +57,12 @@ title: 数值计算
 * * *
 设两个近似数 $ x_1^* $和$ x_2^* $ 的误差限分别为 $ \varepsilon ( x_1^* ) $和$ \varepsilon ( x_2^* ) $ ，$ x_2^* $ 的相对误差限为 $ \varepsilon_r ( x_2^* ) $，则它们进行加减乘除运算得到的误差限分别满足不等式
 
+<center>$ \varepsilon ( x_1^* \pm x_2^* ) \leqslant \varepsilon ( x_1^* ) + \varepsilon ( x_2^* ) $</center>
+
+<center>$ \varepsilon ( x_1^* x_2^* ) \leqslant | x_1^* | \varepsilon ( x_2^* ) + | x_2^* | \varepsilon ( x_1^* ) + \varepsilon ( x_1^* ) \varepsilon ( x_2^* ) $</center>
+
+<center>$ \varepsilon ( \frac { x_1^* } { x_2^* } ) \leqslant \frac {| x_1^* | \varepsilon ( x_2^* ) + | x_2^* |\varepsilon ( x_1^* )} {{| x_2^* |}^2} \frac {1} { 1 - \varepsilon_r ( x_2^* ) }, x_2 \neq 0, x_2^* \neq 0, \varepsilon_r ( x_2^* ) < 1 $</center>
+
 
 
 # 第1章 数值分析与科学计算引论(1)
