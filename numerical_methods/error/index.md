@@ -105,3 +105,5 @@ $ A^* $ 的相对误差限
 
 <center>$ \varepsilon_r ( A^* ) \approx \sum_{k=1}^{n} | \frac { \partial f( x_1^* , x_2^* , ..., x_n^* ) } { \partial x_k } | \frac { \varepsilon ( x_k^* ) } { | A^* | } $</center>
 * * *
+
+[上一级](./../index.html)
