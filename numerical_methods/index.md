@@ -93,7 +93,7 @@ title: 数值计算
 
 <center>$ | f(x) - f( x^* ) | \leqslant | f'( x^* ) | \varepsilon( x^* ) + \frac { | f''( \xi ) | } {2} { \varepsilon ( x^* ) }^2, \xi 介于 x 与 x^* 之间 $</center>
 
-假定 $ \frac { {| f''( \xi ) |} } {2} { \varepsilon ( x^* ) }^2 $ 可忽略，则
+假定 $ \frac { \lvert f''( \xi ) \rvert } {2} { \varepsilon ( x^* ) }^2 $ 可忽略，则
 
 <center>$ \varepsilon (f( x^* )) \approx | f'( x^* ) | \varepsilon ( x^* ) $</center>
 
