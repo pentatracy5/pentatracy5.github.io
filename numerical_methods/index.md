@@ -59,10 +59,6 @@ title: 数值计算
 
 <center>$ \varepsilon ( x_1^* \pm x_2^* ) \leqslant \varepsilon ( x_1^* ) + \varepsilon ( x_2^* ) $</center>
 
-<center>$ \varepsilon ( x_1^* x_2^* ) \leqslant | x_1^* | \varepsilon ( x_2^* ) + | x_2^* | \varepsilon ( x_1^* ) + \varepsilon ( x_1^* ) \varepsilon ( x_2^* ) $</center>
-
-<center>$ \varepsilon ( \frac { x_1^* } { x_2^* } ) \leqslant \frac {| x_1^* | \varepsilon ( x_2^* ) + | x_2^* |\varepsilon ( x_1^* )} {{| x_2^* |}^2} \frac {1} { 1 - \varepsilon_r ( x_2^* ) }, x_2 \neq 0, x_2^* \neq 0, \varepsilon_r ( x_2^* ) < 1 $</center>
-
 
 
 # 第1章 数值分析与科学计算引论(1)
