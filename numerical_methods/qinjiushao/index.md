@@ -138,8 +138,20 @@ $$
 
 * * *
 秦九韶算法的C++实现
-
-
+```C++
+#include <vector>
+using std::vector;
+    
+float Qinjiushao(const vector<float>& a, float x)
+{
+    float result = 0.f;
+    for(auto ai : a)
+    {
+        result = result * x + ai;
+    }
+    return result;
+}
+```
 * * *
 
 [上一级](./../index.html)
