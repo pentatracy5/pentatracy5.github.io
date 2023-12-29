@@ -104,7 +104,7 @@ $$
     \end{cases}
 $$
 
-$
+$$
     \begin{cases}
         r(x) = d_{n-2} + ( x - x^* )s(x), \quad r( x^* ) = d_{n-2}\\
         r'(x) = s(x) + ( x - x^* )s'(x), \quad r'( x^* ) = s( x^* )\\
