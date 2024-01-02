@@ -23,4 +23,18 @@ $$ x_{k+1} = \frac {1} {2} (x_{k} + \frac {a} {x_{k}}), k = 0, 1, ... $$
 
 * * *
 
+开方求值迭代算法的C++实现
+```C++   
+float sqrt(float a, float x0, unsigned int iterNum)
+{
+    for(unsigned int i = 0; i < iterNum; i++)
+    {
+        x0 = 0.5f * (x0 + a / x0);
+    }
+    return x0;
+}
+```
+
+* * *
+
 [上一级](./../index.html)
