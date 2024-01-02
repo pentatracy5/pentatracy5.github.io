@@ -7,7 +7,7 @@ title: 数值计算
 
 [多项式求值的秦九韶算法](./qinjiushao/index.html)
 
-### 1.4.2 迭代法与开方求值(14)
+[迭代法与开方求值](./iteration_sqrt/index.html)
 
 ### 1.4.3 以直代曲与化整为“零”(15)
 
