@@ -47,7 +47,7 @@ $$ \frac { e^* } { x } - \frac { e^* } { x^* } = \frac { (\frac { e^* } { x^* })
 
 * * *
 
-定义：相对误差的绝对值上界叫做**相对误差限**，记做 $ \varepsilon_r^* $ ，即 $ \varepsilon_r^* = \frac { \varepsilon^* } { \| x^* \| } $
+定义：相对误差的绝对值上界叫做**相对误差限**，记做 $ \varepsilon_r^* $ ，即 $ \varepsilon_r^* = \frac { \varepsilon^* } { \vert x^* \vert } $
 
 * * *
 
