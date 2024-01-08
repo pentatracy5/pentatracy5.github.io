@@ -101,4 +101,58 @@ $$ \sum_{i=0}^n l_i(x) = 1 $$
 
 * * *
 
+拉格朗日插值的C++实现
+```C++   
+#include <vector>
+using std::vector;
+
+class Lagrange_polynomial
+{
+public:
+    Lagrange_polynomial(const vector<float>& x, const vector<float>& y)
+    {
+        x_ = x;
+        y_ = y;
+        n_ = int(x.size()) - 1;
+    }
+
+    ~Lagrange_polynomial()
+    {
+
+    }
+    
+    void Set_interpolation_nodes(const vector<float>& x, const vector<float>& y)
+    {
+        x_ = x;
+        y_ = y;
+        n_ = int(x.size()) - 1;
+    }
+
+    float Eval(float x)
+    {
+        float L_n = 0.f;
+        for (size_t k = 0; k <= n_; k++)
+        {
+            float l_k = 1.f;
+            for (size_t i = 0; i <= n_; i++)
+            {
+                if (i != k)
+                {
+                    l_k *= (x - x_[i]) / (x_[k] - x_[i]);
+                }
+            }
+            L_n += y_[k] * l_k;
+        }
+        return L_n;
+    }
+
+private:
+    int n_;
+    vector<float> x_;
+    vector<float> y_;
+};
+```
+
+* * *
+
 [上一级](./../index.html)
