@@ -224,4 +224,157 @@ $$
 
 * * *
 
+牛顿插值的C++实现
+```C++   
+#include <vector>
+using std::vector;
+
+class Newton_polynomial
+{
+public:
+	Newton_polynomial(const vector<float>& x, const vector<float>& y)
+	{
+		x_ = x;
+		n_ = int(x.size()) - 1;
+		dd_.resize(n_ + 1);
+		dd_.at(0) = y;
+		for (size_t k = 1; k <= n_; k++)
+		{
+			dd_[k].resize(n_ - k + 1);
+			for (size_t i = 0; i < n_ - k + 1; i++)
+			{
+				dd_[k][i] = (dd_[k - 1][i + 1] - dd_[k - 1][i]) / (x_[i + k] - x_[i]);
+			}
+		}
+	}
+
+	virtual ~Newton_polynomial()
+	{
+
+	}
+
+	virtual void Set_interpolation_nodes(const vector<float>& x, const vector<float>& y)
+	{
+		x_ = x;
+		n_ = int(x.size()) - 1;
+		dd_.resize(n_ + 1);
+		dd_.at(0) = y;
+		for (size_t k = 1; k <= n_; k++)
+		{
+			dd_[k].resize(n_ - k + 1);
+			for (size_t i = 0; i < n_ - k + 1; i++)
+			{
+				dd_[k][i] = (dd_[k - 1][i + 1] - dd_[k - 1][i]) / (x_[i + k] - x_[i]);
+			}
+		}
+	}
+
+	virtual void Insert_interpolation_nodes(float x, float y)
+	{
+		x_.push_back(x);
+		n_ += 1;
+		dd_.resize(n_ + 1);
+		dd_.at(0).push_back(y);
+		for (size_t k = 1; k <= n_; k++)
+		{
+			dd_[k].resize(n_ - k + 1);
+			dd_[k][n_ - k] = (dd_[k - 1][n_ - k + 1] - dd_[k - 1][n_ - k]) / (x_[n_] - x_[n_ - k]);
+		}
+	}
+
+	virtual float Eval(float x)
+	{
+		float P_n = dd_.at(0).at(0);
+		float omega = 1.f;
+		for (size_t k = 1; k <= n_; k++)
+		{
+			omega *= (x - x_[k - 1]);
+			P_n += dd_[k][0] * omega;
+		}
+		return P_n;
+	}
+
+private:
+	int n_;
+	vector<float> x_;
+	vector<vector<float>> dd_;
+};
+
+class Newton_forward_polynomial
+{
+public:
+	Newton_forward_polynomial(float x0, float h, const vector<float>& y)
+	{
+		x0_ = x0;
+		h_ = h;
+		n_ = int(y.size()) - 1;
+		d_.resize(n_ + 1);
+		d_.at(0) = y;
+		for (size_t k = 1; k <= n_; k++)
+		{
+			d_[k].resize(n_ - k + 1);
+			for (size_t i = 0; i < n_ - k + 1; i++)
+			{
+				d_[k][i] = d_[k - 1][i + 1] - d_[k - 1][i];
+			}
+		}
+	}
+
+	virtual ~Newton_forward_polynomial()
+	{
+
+	}
+
+	virtual void Set_interpolation_nodes(float x0, float h, const vector<float>& y)
+	{
+		x0_ = x0;
+		h_ = h;
+		n_ = int(y.size()) - 1;
+		d_.resize(n_ + 1);
+		d_.at(0) = y;
+		for (size_t k = 1; k <= n_; k++)
+		{
+			d_[k].resize(n_ - k + 1);
+			for (size_t i = 0; i < n_ - k + 1; i++)
+			{
+				d_[k][i] = d_[k - 1][i + 1] - d_[k - 1][i];
+			}
+		}
+	}
+
+	virtual void Insert_interpolation_nodes(float y)
+	{
+		n_ += 1;
+		d_.resize(n_ + 1);
+		d_.at(0).push_back(y);
+		for (size_t k = 1; k <= n_; k++)
+		{
+			d_[k].resize(n_ - k + 1);
+			d_[k][n_ - k] = d_[k - 1][n_ - k + 1] - d_[k - 1][n_ - k];
+		}
+	}
+
+	virtual float Eval(float x)
+	{
+		float P_n = d_.at(0).at(0);
+		float t = (x - x0_) / h_;
+		float omega = 1.f;
+		for (size_t k = 1; k <= n_; k++)
+		{
+			omega *= (t - k + 1) / k;
+			P_n += d_[k][0] * omega;
+		}
+		return P_n;
+	}
+
+private:
+	int n_;
+	float x0_;
+	float h_;
+	vector<vector<float>> d_;
+};
+```
+
+* * *
+
 [上一级](./../index.html)
