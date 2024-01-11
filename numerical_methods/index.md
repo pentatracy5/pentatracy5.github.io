@@ -15,11 +15,7 @@ title: 数值计算
 
 [牛顿插值](./Newton_polynomial/index.html)
 
-2.4 埃尔米特插值(35)
-
-2.4.1 重节点均差与泰勒插值(35)
-
-2.4.2 两个典型的埃尔米特插值(36)
+[埃尔米特插值](./Hermite_polynomial/index.html)
 
 2.5 分段低次插值(39)
 
