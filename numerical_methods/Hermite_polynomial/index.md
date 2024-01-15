@@ -217,4 +217,107 @@ $$
 
 * * *
 
+两种典型的埃尔米特插值的C++实现
+```C++   
+#include <vector>
+using std::vector;
+
+class Three_points_Hermite_polynomial
+{
+public:
+	Three_points_Hermite_polynomial(const vector<float>& x, const vector<float>& y, float dy1)
+	{
+		x_ = x;
+		y_ = y;
+		dy1_ = dy1;
+		A_.resize(4);
+		A_[0] = y_[0];
+		A_[1] = (y_[0] - y_[1]) / (x_[0] - x_[1]);
+		float temp = (y_[1] - y_[2]) / (x_[1] - x_[2]);
+		A_[2] = (A_[1] - temp) / (x_[0] - x_[2]);
+		A_[3] = (dy1_ - A_[1] - (x_[1] - x_[0]) * A_[2]) / ((x_[1] - x_[0]) * (x_[1] - x_[2]));
+	}
+
+	virtual ~Three_points_Hermite_polynomial()
+	{
+
+	}
+
+	virtual void Set_interpolation_nodes(const vector<float>& x, const vector<float>& y, float dy1)
+	{
+		x_ = x;
+		y_ = y;
+		dy1_ = dy1;
+		A_.resize(4);
+		A_[0] = y_[0];
+		A_[1] = (y_[0] - y_[1]) / (x_[0] - x_[1]);
+		float temp = (y_[1] - y_[2]) / (x_[1] - x_[2]);
+		A_[2] = (A_[1] - temp) / (x_[0] - x_[2]);
+		A_[3] = (dy1_ - A_[1] - (x_[1] - x_[0]) * A_[2]) / ((x_[1] - x_[0]) * (x_[1] - x_[2]));
+	}
+
+	virtual float Eval(float x)
+	{
+		float H_3 = A_[0];
+		float omega = 1.f;
+		for (size_t i = 1; i <= 3; i++)
+		{
+			omega *= (x - x_[i - 1]);
+			H_3 += A_[i] * omega;
+		}
+		return H_3;
+	}
+
+private:
+	vector<float> x_;
+	vector<float> y_;
+	float dy1_;
+	vector<float> A_;
+}
+
+class Two_points_Hermimte_polynomial
+{
+public:
+	Two_points_Hermimte_polynomial(const vector<float>& x, const vector<float>& y, const vector<float>& dy)
+	{
+		x_ = x;
+		y_ = y;
+		dy_ = dy;
+	}
+
+	virtual ~Two_points_Hermimte_polynomial()
+	{
+
+	}
+
+	virtual void Set_interpolation_nodes(const vector<float>& x, const vector<float>& y, const vector<float>& dy)
+	{
+		x_ = x;
+		y_ = y;
+		dy_ = dy;
+	}
+
+	virtual float Eval(float x)
+	{
+		vector<float> alpha(2);
+		vector<float> beta(2);
+		float deltaX = x_[1] - x_[0];
+		float temp = deltaX * deltaX;
+		beta[0] = (x - x_[0]) * (x - x_[1]) * (x - x_[1]) / temp;
+		beta[1] = (x - x_[1]) * (x - x_[0]) * (x - x_[0]) / temp;
+		temp *= deltaX;
+		alpha[0] = (2.f * x + x_[1] - 3.f * x_[0]) * (x - x_[1]) * (x - x_[1]) / temp;
+		alpha[1] = (2.f * x + x_[0] - 3.f * x_[1]) * (x - x_[0]) * (x - x_[0]) / -temp;
+		return y_[0] * alpha[0] + y_[1] * alpha[1] + dy_[0] * beta[0] + dy_[1] * beta[1];
+	}
+
+private:
+	vector<float> x_;
+	vector<float> y_;
+	vector<float> dy_;
+};
+```
+
+* * *
+
 [上一级](./../index.html)
