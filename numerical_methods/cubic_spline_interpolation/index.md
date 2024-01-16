@@ -304,7 +304,7 @@ $$
 这里 $ M_j (j = 0, 1, ... , n) $ 是未知的。为了确定 $ M_j $ ，对 $ S(x) $ 求导得
 
 $$
-S'(x) = -\frac {(x_{j+1} - x)^2} {2h_j} M_j + \frac {(x - x_j)^2} {2h_j} M_{j+1} + \frac {y_{j+1} - y_j} {h_j} - \frac {M_{j-\frac {(x_{j+1} - x)^2} {2h_j} M_j + \frac {(x - x_j)^2} {2h_j} M_{j+1} + \frac {y_{j+1} - y_j} {h_j} - \frac {M_{j+1} - M_j} {6} h_j
+S'(x) = -\frac {(x_{j+1} - x)^2} {2h_j} M_j + \frac {(x - x_j)^2} {2h_j} M_{j+1} + \frac {y_{j+1} - y_j} {h_j} - \frac {M_{j+1} - M_j} {6} h_j
 $$
 
 由此求得
