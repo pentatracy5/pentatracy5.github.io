@@ -280,7 +280,7 @@ $$
 构造三次样条插值函数的一种方法：假定 $ S''(x_j) = M_j, (j = 0, 1, ... , n) $ ，由于 $ S(x) $ 在区间 $ [x_j, x_{j+1}] $ 上是三次多项式，故 $ S''(x) $ 在 $ [x_j, x_{j+1}] $ 上是线性函数，可表示为
 
 $$
-S''(x) = \frac {x_{j+1} - x} {h_j} M_j + \frac {x - x_j} {h_j} M_{j+1}
+S''(x) = \frac {x_{j+1} - x} {h_j} M_j + \frac {x - x_j} {h_j} M_{j+1} \quad h_j = x_{j+1} - x_j
 $$
 
 对 $ S''(x) $ 积分两次得
@@ -328,61 +328,270 @@ $$
 其中
 
 $$
-\mu_j = \frac {h_{j_1}} {h_{j_1} + h_j} \\
-\lambda_j = \frac {h_j} {h_{j_1} + h_j} \\
-d_j = 6f[x_{j-1}, x_j, x_{j+1}] \\
-j = 1, 2, ... , n-1
+\mu_j = \frac {h_{j-1}} {h_{j-1} + h_j} \quad \lambda_j = \frac {h_j} {h_{j-1} + h_j} \quad d_j = 6f[x_{j-1}, x_j, x_{j+1}] \quad j = 1, 2, ... , n-1
 $$
 
 对第一种边界条件，可导出两个方程
 
 $$
-
+2 M_0 + M_1 = \frac {6 (f[x_0, x_1] - f'0)} {h_0} \\
+M_{n-1} + 2 M_n = \frac {6 (f'n - f[x_{n-1}, x_n])} {h_{n-1}} \\
 $$
 
-如果令 $  $ ，则有矩阵形式表示的关于 $  $ 的线性方程组
+如果令
 
 $$
+\lambda_0 = 1 \quad d_0 = \frac {6 (f[x_0, x_1] - f'0)} {h_0} \\
+\mu_n = 1 \quad d_n = \frac {6 (f'n - f[x_{n-1}, x_n])} {h_{n-1}}
+$$
 
+则有矩阵形式表示的关于 $ M_j (j = 0, 1, ... , n) $ 的线性方程组
+
+$$
+\begin{bmatrix}
+    {2}     & {\lambda_0}   &               &           &                   \\
+    {\mu_1} & {2}           & {\lambda_1}   &           &                   \\
+            & {\ddots}      & {\ddots}      & {\ddots}  &                   \\
+            &               & {\mu_{n-1}}   & {2}       & {\lambda_{n-1}}   \\
+            &               &               & {\mu_n}   & {2}       
+\end{bmatrix}
+\begin{bmatrix}
+    M_0         \\
+    M_1         \\
+    {\vdots}    \\
+    M_{n-1}     \\
+    M_n         
+\end{bmatrix}
+=
+\begin{bmatrix}
+    d_0         \\
+    d_1         \\
+    {\vdots}    \\
+    d_{n-1}     \\
+    d_n         
+\end{bmatrix}
 $$
 
 对于第二种边界条件，直接有
 
 $$
-
+M_0 = f''_0 \quad M_n = f''_n
 $$
 
-如果令 $  $ ，则同样有如上的矩阵形式的线性方程组。
+如果令
+
+$$
+\lambda_0 = 0 \quad d_0 = 2 f''_0 \\
+\mu_n = 0 \quad d_n = 2 f''_n
+$$
+
+则同样有如上的矩阵形式的线性方程组。
 
 对于第三种边界条件，有
 
 $$
-
+M_0 = M_n \quad \lambda_n M_1 + \mu_n M_{n-1} + 2 M_n = d_n
 $$
 
 其中
 
 $$
-
+\mu_n = \frac {h_{n-1}} {h_{n-1} + h_0} \quad \lambda_n = \frac {h_0} {h_{n-1} + h_0} \quad d_n = 6 \frac {f[x_0, x_1] - f[x_{n-1}, x_n]} {h_{n-1} + h_0}
 $$
 
-从而有矩阵形式表示的关于 $  $ 的线性方程组
+从而有矩阵形式表示的关于 $ M_j (j = 0, 1, ... , n) $ 的线性方程组
 
 $$
-
+\begin{bmatrix}
+    {2}         & {\lambda_1}   &               &           & {\mu_1}           \\
+    {\mu_2}     & {2}           & {\lambda_2}   &           &                   \\
+                & {\ddots}      & {\ddots}      & {\ddots}  &                   \\
+                &               & {\mu_{n-1}}   & {2}       & {\lambda_{n-1}}   \\
+    {\lambda_n} &               &               & {\mu_n}   & {2}       
+\end{bmatrix}
+\begin{bmatrix}
+    M_1         \\
+    M_2         \\
+    {\vdots}    \\
+    M_{n-1}     \\
+    M_n         
+\end{bmatrix}
+=
+\begin{bmatrix}
+    d_1         \\
+    d_2         \\
+    {\vdots}    \\
+    d_{n-1}     \\
+    d_n         
+\end{bmatrix}
 $$
 
-$  $ 在力学上解释为细梁在 $  $ 截面处的弯矩，称为 $  $ 的矩，上文的关于 $  $ 的三对角线性方程组称为三弯矩方程。方程组的系数矩阵中元素 $  $ 已完全确定，并且满足 $  $ ，因此系数矩阵为严格对角占优矩阵，从而 $  $ 有唯一解。（求解方法可采用追赶法）
+$ S''(x) $ 在力学上解释为细梁在 $ x $ 截面处的弯矩，称为 $ S(x) $ 的矩，上文的关于 $ M_j (j = 0, 1, ... , n) $ 的三对角线性方程组称为三弯矩方程。方程组的系数矩阵中元素 $ \mu_j, \lambda_j $ 已完全确定，并且满足 $ \mu_j \geqslant 0, \lambda_j \geqslant 0, \mu_j + \lambda_j \lt 2 $ ，因此系数矩阵为严格对角占优矩阵，从而 $ M_j $ 有唯一解。（求解方法可采用追赶法）
 
 * * *
 
-构造三次样条插值函数的另一种方法：
+构造三次样条插值函数的另一种方法：假定 $ S'(x_j) = m_j, (j = 0, 1, ... , n) $ ，根据两点三次埃尔米特插值， $ S(x) $ 在 $ [x_j, x_{j+1}] $ 上可表示为
+
+$$
+S(x) = \alpha_{j, j+1}(x) y_j + \alpha_{j+1, j}(x) y_{j+1} + \beta_{j, j+1}(x) m_j + \beta_{j+1, j}(x) m_{j+1}
+$$
+
+其中
+
+$$
+\alpha_{j, j+1}(x) = \frac {(2x + x_{j+1} - 3x_j) (x - x_{j+1})^2} {h_j^3} \\
+\alpha_{j+1, j}(x) = -\frac {(2x + x_j - 3x_{j+1}) (x - x_j)^2} {h_j^3} \\
+\beta_{j, j+1}(x) = \frac {(x - x_j) (x - x_{j+1})^2} {h_j^2} \\
+\beta_{j+1, j}(x) = \frac {(x - x_{j+1}) (x - x_j)^2} {h_j^2} \\
+h_j = x_{j+1} - x_j
+$$
+
+这里 $ m_j (j = 0, 1, ... , n) $ 是未知的。为了确定 $ m_j $ ，对 $ S(x) $ 求二阶导得
+
+$$
+S''(x) = \alpha''_{j, j+1}(x) y_j + \alpha''_{j+1, j}(x) y_{j+1} + \beta''_{j, j+1}(x) m_j + \beta''_{j+1, j}(x) m_{j+1}
+$$
+
+其中
+
+$$\alpha''_{j, j+1}(x) = \frac {6 [(x - x_j) - (x_{j+1} - x)]} {h_j^3} \\
+\alpha''_{j+1, j}(x) = -\frac {6 [(x - x_j) - (x_{j+1} - x)]} {h_j^3} \\
+\beta''_{j, j+1}(x) = \frac {2 (x - x_j) - 4 (x_{j+1} - x)} {h_j^2} \\
+\beta''_{j+1, j}(x) = \frac {4 (x - x_j) - 2 (x_{j+1} - x)} {h_j^2}
+$$
+
+由此求得
+
+$$
+S''(x_j + 0) = -\frac {6 y_j} {h_j^2} + \frac {6 y_{j+1}} {h_j^2} - \frac {4 m_j} {h_j} - \frac {2 m_{j+1}} {h_j}
+$$
+
+类似地可求出 $ S(x) $ 在区间 $ [x_{j-1}, x_j] $ 上的表达式，进而得
+
+$$
+S''(x_j - 0) = \frac {6 y_{j-1}} {h_{j-1}^2} - \frac {6 y_j} {h_{j-1}^2} + \frac {2 m_{j-1}} {h_{j-1}} + \frac {4 m_j} {h_{j-1}}
+$$
+
+利用 $ S''(x_j + 0) = S''(x_j - 0) $ 可得
+
+$$
+\mu_j m_{j-1} + 2 m_j + \lambda_j m_{j+1} = d_j, j = 1, 2, ... , n-1
+$$
+
+其中
+
+$$
+\mu_j = \frac {h_j} {h_{j-1} + h_j} \quad \lambda_j = \frac {h_{j-1}} {h_{j-1} + h_j} \quad d_j = 3 [\lambda_j f[x_j, x_{j+1}] + \mu_j f[x_{j-1}, x_j]] \quad j = 1, 2, ... , n-1
+$$
+
+对于第一种边界条件，直接有
+
+$$
+m_0 = f'_0 \quad m_n = f'_n
+$$
+
+如果令
+
+$$
+\lambda_0 = 0 \quad d_0 = 2 f'_0 \\
+\mu_n = 0 \quad d_n = 2 f'_n
+$$
+
+则有矩阵形式表示的关于 $ m_j (j = 0, 1, ... , n) $ 的线性方程组
+
+$$
+\begin{bmatrix}
+    {2}     & {\lambda_0}   &               &           &                   \\
+    {\mu_1} & {2}           & {\lambda_1}   &           &                   \\
+            & {\ddots}      & {\ddots}      & {\ddots}  &                   \\
+            &               & {\mu_{n-1}}   & {2}       & {\lambda_{n-1}}   \\
+            &               &               & {\mu_n}   & {2}       
+\end{bmatrix}
+\begin{bmatrix}
+    m_0         \\
+    m_1         \\
+    {\vdots}    \\
+    m_{n-1}     \\
+    m_n         
+\end{bmatrix}
+=
+\begin{bmatrix}
+    d_0         \\
+    d_1         \\
+    {\vdots}    \\
+    d_{n-1}     \\
+    d_n         
+\end{bmatrix}
+$$
+
+对第二种边界条件，可导出两个方程
+
+$$
+2 m_0 + m_1 = 3[f[x_0, x_1] - \frac {h_0} {6} f''_0] \\
+m_{n-1} + 2 m_n = 3[\frac {h_{n-1}} {6} f''_n + f[x_{n-1}, x_n]]
+$$
+
+如果令
+
+$$
+\lambda_0 = 1 \quad d_0 = 3[f[x_0, x_1] - \frac {h_0} {6} f''_0] \\
+\mu_n = 1 \quad d_n = 3[\frac {h_{n-1}} {6} f''_n + f[x_{n-1}, x_n]]
+$$
+
+则同样有如上的矩阵形式的线性方程组。
+
+对于第三种边界条件，有
+
+$$
+m_0 = m_n \quad \lambda_n m_1 + \mu_n m_{n-1} + 2 m_n = d_n
+$$
+
+其中
+
+$$
+\mu_n = \frac {h_0} {h_{n-1} + h_0} \quad \lambda_n = \frac {h_{n-1}} {h_{n-1} + h_0} \quad d_n = 3 [\lambda_n f[x_0, x_1] + \mu_n f[x_{n-1}, x_n]]
+$$
+
+从而有矩阵形式表示的关于 $ m_j (j = 0, 1, ... , n) $ 的线性方程组
+
+$$
+\begin{bmatrix}
+    {2}         & {\lambda_1}   &               &           & {\mu_1}           \\
+    {\mu_2}     & {2}           & {\lambda_2}   &           &                   \\
+                & {\ddots}      & {\ddots}      & {\ddots}  &                   \\
+                &               & {\mu_{n-1}}   & {2}       & {\lambda_{n-1}}   \\
+    {\lambda_n} &               &               & {\mu_n}   & {2}       
+\end{bmatrix}
+\begin{bmatrix}
+    m_1         \\
+    m_2         \\
+    {\vdots}    \\
+    m_{n-1}     \\
+    m_n         
+\end{bmatrix}
+=
+\begin{bmatrix}
+    d_1         \\
+    d_2         \\
+    {\vdots}    \\
+    d_{n-1}     \\
+    d_n         
+\end{bmatrix}
+$$
+
+易知系数矩阵为严格对角占优矩阵，从而 $ m_j $ 有唯一解。
 
 * * *
 
 关于三次样条插值的收敛性和误差估计有如下定理（没有证明，作者说太复杂）
 
-定理：
+定理：设 $ f(x) \in C^4[a, b] $ ， $ S(x) $ 为满足第一种或第二种边界条件的三次样条函数，令 $ h = \underset {0 \leqslant j \leqslant n-1} {max} h_j (h_j = x_{j+1} - x_j) $ 则有估计式
+
+$$
+\underset {a \leqslant x \leqslant b} {max} \vert f^{(k)}(x) - S^{(k)}(x) \vert \leqslant C_k \underset {a \leqslant x \leqslant b} {max} \vert f^{(4)}(x) \vert h^{4-k}, k = 0, 1, 2
+$$
+
+其中 $ C_0 = \frac {5} {384}, C_1 = \frac {1} {24}, C_2 = \frac {3} {8} $ 。
 
 * * *
 
