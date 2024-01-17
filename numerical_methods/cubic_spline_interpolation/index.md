@@ -601,7 +601,223 @@ $$
 
 三次样条插值的C++实现
 ```C++
+#include <vector>
+using std::vector;
 
+class Piecewise_cubic_Hermite_interpolation;
+
+class Cubic_spline_interpolation_1
+{
+public:
+	Cubic_spline_interpolation_1(const vector<float>& x, const vector<float>& y)
+	{
+		x_ = x;
+		y_ = y;
+		n_ = int(x.size()) - 1;
+		h_.resize(n_);
+		M_.resize(n_ + 1);
+		mu_.resize(n_ + 1);
+		lambda_.resize(n_ + 1);
+		d_.resize(n_ + 1);
+		for (size_t j = 0; j < n_; j++)
+		{
+			h_[j] = x_[j + 1] - x_[j];
+		}
+		for (size_t j = 1; j < n_; j++)
+		{
+			float temp = h_[j - 1] + h_[j];
+			mu_[j] = h_[j - 1] / temp;
+			lambda_[j] = h_[j] / temp;
+			d_[j] = 6.f * ((y_[j + 1] - y_[j]) / h_[j] - (y_[j] - y_[j - 1]) / h_[j - 1]) / temp;
+		}
+	}
+
+	virtual ~Cubic_spline_interpolation_1()
+	{
+
+	}
+
+	virtual void Set_interpolation_nodes(const vector<float>& x, const vector<float>& y)
+	{
+		x_ = x;
+		y_ = y;
+		n_ = int(x.size()) - 1;
+		h_.resize(n_);
+		M_.resize(n_ + 1);
+		mu_.resize(n_ + 1);
+		lambda_.resize(n_ + 1);
+		d_.resize(n_ + 1);
+		for (size_t j = 0; j < n_; j++)
+		{
+			h_[j] = x_[j + 1] - x_[j];
+		}
+		for (size_t j = 1; j < n_; j++)
+		{
+			float temp = h_[j - 1] + h_[j];
+			mu_[j] = h_[j - 1] / temp;
+			lambda_[j] = h_[j] / temp;
+			d_[j] = 6.f * ((y_[j + 1] - y_[j]) / h_[j] - (y_[j] - y_[j - 1]) / h_[j - 1]) / temp;
+		}
+	}
+
+	virtual void Set_first_boundary_conditions(float dy0, float dyn)
+	{
+		lambda_[0] = 1.f;
+		d_[0] = 6.f * ((y_[1] - y_[0]) / h_[0] - dy0) / h_[0];
+		mu_[n_] = 1.f;
+		d_[n_] = 6.f * (dyn - (y_[n_] - y_[n_ - 1]) / h_[n_ - 1]) / h_[n_ - 1];
+		//solve M_[j]
+	}
+
+	virtual void Set_second_boundary_conditions(float ddy0 = 0.f, float ddyn = 0.f)
+	{
+		lambda_[0] = 0.f;
+		d_[0] = 2.f * ddy0;
+		mu_[n_] = 0.f;
+		d_[n_] = 2.f * ddyn;
+		//solve M_[j]
+	}
+
+	virtual void Set_periodic_boundary_conditions()
+	{
+		float temp = h_[n_ - 1] + h_[0];
+		mu_[n_] = h_[n_ - 1] / temp;
+		lambda_[n_] = h_[0] / temp;
+		d_[n_] = 6.f * ((y_[1] - y_[0]) / h_[0] - (y_[n_] - y_[n_ - 1]) / h_[n_ - 1]) / temp;
+		//solve M_[j]
+		M_[0] = M_[n_];
+	}
+
+	virtual float Eval(float x)
+	{
+		if (x_.at(0) > x || x_.at(n_) < x)
+		{
+			return 0.f;
+		}
+
+		for (size_t j = 0; j < n_; j++)
+		{
+			if (x_[j + 1] >= x)
+			{
+				float r = x_[j + 1] - x;
+				float l = x - x_[j];
+				return ((r * r * r * M_[j] + l * l * l * M_[j + 1]) / 6.f + ((y_[j] - h_[j] * h_[j] * M_[j] / 6.f) * r + (y_[j + 1] - h_[j] * h_[j] * M_[j + 1] / 6.f) * l)) / h_[j];
+			}
+		}
+	}
+
+private:
+	int n_;
+	vector<float> x_;
+	vector<float> y_;
+	vector<float> h_;
+	vector<float> M_;
+	vector<float> mu_;
+	vector<float> lambda_;
+	vector<float> d_;
+};
+
+class Cubic_spline_interpolation_2
+{
+public:
+	Cubic_spline_interpolation_2(const vector<float>& x, const vector<float>& y)
+	{
+		x_ = x;
+		y_ = y;
+		n_ = int(x.size()) - 1;
+		h_.resize(n_);
+		m_.resize(n_ + 1);
+		mu_.resize(n_ + 1);
+		lambda_.resize(n_ + 1);
+		d_.resize(n_ + 1);
+		for (size_t j = 0; j < n_; j++)
+		{
+			h_[j] = x_[j + 1] - x_[j];
+		}
+		for (size_t j = 1; j < n_; j++)
+		{
+			float temp = h_[j - 1] + h_[j];
+			mu_[j] = h_[j] / temp;
+			lambda_[j] = h_[j - 1] / temp;
+			d_[j] = 3.f * (lambda_[j] * (y_[j + 1] - y_[j]) / h_[j] + mu_[j] * (y_[j] - y_[j - 1]) / h_[j - 1]);
+		}
+	}
+
+	virtual ~Cubic_spline_interpolation_2()
+	{
+
+	}
+
+	virtual void Set_interpolation_nodes(const vector<float>& x, const vector<float>& y)
+	{
+		x_ = x;
+		y_ = y;
+		n_ = int(x.size()) - 1;
+		h_.resize(n_);
+		m_.resize(n_ + 1);
+		mu_.resize(n_ + 1);
+		lambda_.resize(n_ + 1);
+		d_.resize(n_ + 1);
+		for (size_t j = 0; j < n_; j++)
+		{
+			h_[j] = x_[j + 1] - x_[j];
+		}
+		for (size_t j = 1; j < n_; j++)
+		{
+			float temp = h_[j - 1] + h_[j];
+			mu_[j] = h_[j] / temp;
+			lambda_[j] = h_[j - 1] / temp;
+			d_[j] = 3.f * (lambda_[j] * (y_[j + 1] - y_[j]) / h_[j] + mu_[j] * (y_[j] - y_[j - 1]) / h_[j - 1]);
+		}
+	}
+
+	virtual void Set_first_boundary_conditions(float dy0, float dyn)
+	{
+		lambda_[0] = 0.f;
+		d_[0] = 2.f * dy0;
+		mu_[n_] = 0.f;
+		d_[n_] = 2.f * dyn;
+		//solve m_[j]
+		piecewise_H_3_.Set_interpolation_nodes(x_, y_, m_);
+	}
+
+	virtual void Set_second_boundary_conditions(float ddy0 = 0.f, float ddyn = 0.f)
+	{
+		lambda_[0] = 1.f;
+		d_[0] = 3.f * ((y_[1] - y_[0]) / h_[0] - h_[0] * ddy0 / 6.f);
+		mu_[n_] = 1.f;
+		d_[n_] = 3.f * (h_[n_ - 1] * ddyn / 6.f - (y_[n_] - y_[n_ - 1]) / h_[n_ - 1]);
+		//solve m_[j]
+		piecewise_H_3_.Set_interpolation_nodes(x_, y_, m_);
+	}
+
+	virtual void Set_periodic_boundary_conditions()
+	{
+		float temp = h_[n_ - 1] + h_[0];
+		mu_[n_] = h_[0] / temp;
+		lambda_[n_] = h_[n_ - 1] / temp;
+		d_[n_] = 3.f * (lambda_[n_] * (y_[1] - y_[0]) / h_[0] + mu_[n_] * (y_[n_] - y_[n_ - 1]) / h_[n_ - 1]);
+		//solve m_[j]
+		m_[0] = m_[n_];
+		piecewise_H_3_.Set_interpolation_nodes(x_, y_, m_);
+	}
+
+	virtual float Eval(float x)
+	{
+		return piecewise_H_3_.Eval(x);
+	}
+
+private:
+	int n_;
+	vector<float> x_;
+	vector<float> y_;
+	vector<float> h_;
+	vector<float> m_;
+	vector<float> mu_;
+	vector<float> lambda_;
+	vector<float> d_;
+	Piecewise_cubic_Hermite_interpolation piecewise_H_3_;
+};
 ```
 
 * * *
