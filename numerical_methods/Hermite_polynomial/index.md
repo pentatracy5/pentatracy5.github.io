@@ -227,15 +227,7 @@ class Three_points_Hermite_polynomial
 public:
 	Three_points_Hermite_polynomial(const vector<float>& x, const vector<float>& y, float dy1)
 	{
-		x_ = x;
-		y_ = y;
-		dy1_ = dy1;
-		A_.resize(4);
-		A_[0] = y_[0];
-		A_[1] = (y_[0] - y_[1]) / (x_[0] - x_[1]);
-		float temp = (y_[1] - y_[2]) / (x_[1] - x_[2]);
-		A_[2] = (A_[1] - temp) / (x_[0] - x_[2]);
-		A_[3] = (dy1_ - A_[1] - (x_[1] - x_[0]) * A_[2]) / ((x_[1] - x_[0]) * (x_[1] - x_[2]));
+		Set_interpolation_nodes(x, y, dy1);
 	}
 
 	virtual ~Three_points_Hermite_polynomial()
@@ -280,9 +272,7 @@ class Two_points_Hermimte_polynomial
 public:
 	Two_points_Hermimte_polynomial(const vector<float>& x, const vector<float>& y, const vector<float>& dy)
 	{
-		x_ = x;
-		y_ = y;
-		dy_ = dy;
+		Set_interpolation_nodes(x, y, dy);
 	}
 
 	virtual ~Two_points_Hermimte_polynomial()
