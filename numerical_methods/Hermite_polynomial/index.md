@@ -225,6 +225,11 @@ using std::vector;
 class Three_points_Hermite_polynomial
 {
 public:
+	Three_points_Hermite_polynomial()
+	{
+		dy1_ = 0.f;
+	}
+
 	Three_points_Hermite_polynomial(const vector<float>& x, const vector<float>& y, float dy1)
 	{
 		Set_interpolation_nodes(x, y, dy1);
@@ -270,6 +275,11 @@ private:
 class Two_points_Hermimte_polynomial
 {
 public:
+	Two_points_Hermimte_polynomial()
+	{
+
+	}
+
 	Two_points_Hermimte_polynomial(const vector<float>& x, const vector<float>& y, const vector<float>& dy)
 	{
 		Set_interpolation_nodes(x, y, dy);
