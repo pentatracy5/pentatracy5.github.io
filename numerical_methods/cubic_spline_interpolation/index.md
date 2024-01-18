@@ -163,6 +163,11 @@ class Two_points_Hermimte_polynomial;
 class Piecewise_cubic_Hermite_interpolation
 {
 public:
+	Piecewise_cubic_Hermite_interpolation()
+	{
+		n_ = -1;
+	}
+
 	Piecewise_cubic_Hermite_interpolation(const vector<float>& x, const vector<float>& y, const vector<float>& dy)
 	{
 		x_ = x;
@@ -603,33 +608,22 @@ $$
 ```C++
 #include <vector>
 using std::vector;
+using std::copy;
+
+class Two_points_Hermimte_polynomial;
 
 class Piecewise_cubic_Hermite_interpolation;
+
+class LU_triple_diagonal_matrix_1;
+
+class LU_triple_diagonal_matrix_2;
 
 class Cubic_spline_interpolation_1
 {
 public:
 	Cubic_spline_interpolation_1(const vector<float>& x, const vector<float>& y)
 	{
-		x_ = x;
-		y_ = y;
-		n_ = int(x.size()) - 1;
-		h_.resize(n_);
-		M_.resize(n_ + 1);
-		mu_.resize(n_ + 1);
-		lambda_.resize(n_ + 1);
-		d_.resize(n_ + 1);
-		for (size_t j = 0; j < n_; j++)
-		{
-			h_[j] = x_[j + 1] - x_[j];
-		}
-		for (size_t j = 1; j < n_; j++)
-		{
-			float temp = h_[j - 1] + h_[j];
-			mu_[j] = h_[j - 1] / temp;
-			lambda_[j] = h_[j] / temp;
-			d_[j] = 6.f * ((y_[j + 1] - y_[j]) / h_[j] - (y_[j] - y_[j - 1]) / h_[j - 1]) / temp;
-		}
+		Set_interpolation_nodes(x, y);
 	}
 
 	virtual ~Cubic_spline_interpolation_1()
@@ -666,7 +660,8 @@ public:
 		d_[0] = 6.f * ((y_[1] - y_[0]) / h_[0] - dy0) / h_[0];
 		mu_[n_] = 1.f;
 		d_[n_] = 6.f * (dyn - (y_[n_] - y_[n_ - 1]) / h_[n_ - 1]) / h_[n_ - 1];
-		//solve M_[j]
+		LU_triple_diagonal_matrix_1 solver(mu_, vector<float>(n_ + 1, 2.f), lambda_);
+		solver.Solve(d_, M_);
 	}
 
 	virtual void Set_second_boundary_conditions(float ddy0 = 0.f, float ddyn = 0.f)
@@ -675,7 +670,8 @@ public:
 		d_[0] = 2.f * ddy0;
 		mu_[n_] = 0.f;
 		d_[n_] = 2.f * ddyn;
-		//solve M_[j]
+		LU_triple_diagonal_matrix_1 solver(mu_, vector<float>(n_ + 1, 2.f), lambda_);
+		solver.Solve(d_, M_);
 	}
 
 	virtual void Set_periodic_boundary_conditions()
@@ -684,7 +680,17 @@ public:
 		mu_[n_] = h_[n_ - 1] / temp;
 		lambda_[n_] = h_[0] / temp;
 		d_[n_] = 6.f * ((y_[1] - y_[0]) / h_[0] - (y_[n_] - y_[n_ - 1]) / h_[n_ - 1]) / temp;
-		//solve M_[j]
+
+		vector<float> temp_mu;
+		temp_mu.assign(++mu_.begin(), mu_.end());
+		vector<float> temp_lambda;
+		temp_lambda.assign(++lambda_.begin(), lambda_.end());
+		LU_triple_diagonal_matrix_2 solver(temp_mu, vector<float>(n_, 2.f), temp_lambda);
+		vector<float> temp_d;
+		temp_d.assign(++d_.begin(), d_.end());
+		vector<float> temp_M(n_);
+		solver.Solve(temp_d, temp_M);
+		copy(temp_M.begin(), temp_M.end(), ++M_.begin());
 		M_[0] = M_[n_];
 	}
 
@@ -722,25 +728,7 @@ class Cubic_spline_interpolation_2
 public:
 	Cubic_spline_interpolation_2(const vector<float>& x, const vector<float>& y)
 	{
-		x_ = x;
-		y_ = y;
-		n_ = int(x.size()) - 1;
-		h_.resize(n_);
-		m_.resize(n_ + 1);
-		mu_.resize(n_ + 1);
-		lambda_.resize(n_ + 1);
-		d_.resize(n_ + 1);
-		for (size_t j = 0; j < n_; j++)
-		{
-			h_[j] = x_[j + 1] - x_[j];
-		}
-		for (size_t j = 1; j < n_; j++)
-		{
-			float temp = h_[j - 1] + h_[j];
-			mu_[j] = h_[j] / temp;
-			lambda_[j] = h_[j - 1] / temp;
-			d_[j] = 3.f * (lambda_[j] * (y_[j + 1] - y_[j]) / h_[j] + mu_[j] * (y_[j] - y_[j - 1]) / h_[j - 1]);
-		}
+		Set_interpolation_nodes(x, y);
 	}
 
 	virtual ~Cubic_spline_interpolation_2()
@@ -777,7 +765,8 @@ public:
 		d_[0] = 2.f * dy0;
 		mu_[n_] = 0.f;
 		d_[n_] = 2.f * dyn;
-		//solve m_[j]
+		LU_triple_diagonal_matrix_1 solver(mu_, vector<float>(n_ + 1, 2.f), lambda_);
+		solver.Solve(d_, m_);
 		piecewise_H_3_.Set_interpolation_nodes(x_, y_, m_);
 	}
 
@@ -787,7 +776,8 @@ public:
 		d_[0] = 3.f * ((y_[1] - y_[0]) / h_[0] - h_[0] * ddy0 / 6.f);
 		mu_[n_] = 1.f;
 		d_[n_] = 3.f * (h_[n_ - 1] * ddyn / 6.f - (y_[n_] - y_[n_ - 1]) / h_[n_ - 1]);
-		//solve m_[j]
+		LU_triple_diagonal_matrix_1 solver(mu_, vector<float>(n_ + 1, 2.f), lambda_);
+		solver.Solve(d_, m_);
 		piecewise_H_3_.Set_interpolation_nodes(x_, y_, m_);
 	}
 
@@ -797,7 +787,17 @@ public:
 		mu_[n_] = h_[0] / temp;
 		lambda_[n_] = h_[n_ - 1] / temp;
 		d_[n_] = 3.f * (lambda_[n_] * (y_[1] - y_[0]) / h_[0] + mu_[n_] * (y_[n_] - y_[n_ - 1]) / h_[n_ - 1]);
-		//solve m_[j]
+
+		vector<float> temp_mu;
+		temp_mu.assign(++mu_.begin(), mu_.end());
+		vector<float> temp_lambda;
+		temp_lambda.assign(++lambda_.begin(), lambda_.end());
+		LU_triple_diagonal_matrix_2 solver(temp_mu, vector<float>(n_, 2.f), temp_lambda);
+		vector<float> temp_d;
+		temp_d.assign(++d_.begin(), d_.end());
+		vector<float> temp_m(n_);
+		solver.Solve(temp_d, temp_m);
+		copy(temp_m.begin(), temp_m.end(), ++m_.begin());
 		m_[0] = m_[n_];
 		piecewise_H_3_.Set_interpolation_nodes(x_, y_, m_);
 	}
