@@ -111,9 +111,7 @@ class Lagrange_polynomial
 public:
     Lagrange_polynomial(const vector<float>& x, const vector<float>& y)
     {
-        x_ = x;
-        y_ = y;
-        n_ = int(x.size()) - 1;
+        Set_interpolation_nodes(x, y);
     }
 
     ~Lagrange_polynomial()
