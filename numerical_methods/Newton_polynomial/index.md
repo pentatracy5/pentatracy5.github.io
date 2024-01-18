@@ -234,18 +234,7 @@ class Newton_polynomial
 public:
 	Newton_polynomial(const vector<float>& x, const vector<float>& y)
 	{
-		x_ = x;
-		n_ = int(x.size()) - 1;
-		dd_.resize(n_ + 1);
-		dd_.at(0) = y;
-		for (size_t k = 1; k <= n_; k++)
-		{
-			dd_[k].resize(n_ - k + 1);
-			for (size_t i = 0; i < n_ - k + 1; i++)
-			{
-				dd_[k][i] = (dd_[k - 1][i + 1] - dd_[k - 1][i]) / (x_[i + k] - x_[i]);
-			}
-		}
+		Set_interpolation_nodes(x, y);
 	}
 
 	virtual ~Newton_polynomial()
@@ -305,19 +294,7 @@ class Newton_forward_polynomial
 public:
 	Newton_forward_polynomial(float x0, float h, const vector<float>& y)
 	{
-		x0_ = x0;
-		h_ = h;
-		n_ = int(y.size()) - 1;
-		d_.resize(n_ + 1);
-		d_.at(0) = y;
-		for (size_t k = 1; k <= n_; k++)
-		{
-			d_[k].resize(n_ - k + 1);
-			for (size_t i = 0; i < n_ - k + 1; i++)
-			{
-				d_[k][i] = d_[k - 1][i + 1] - d_[k - 1][i];
-			}
-		}
+		Set_interpolation_nodes(x0, h, y);
 	}
 
 	virtual ~Newton_forward_polynomial()
