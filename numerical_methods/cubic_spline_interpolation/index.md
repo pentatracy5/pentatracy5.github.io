@@ -435,6 +435,124 @@ $ S''(x) $ 在力学上解释为细梁在 $ x $ 截面处的弯矩，称为 $ S(
 
 * * *
 
+三次样条插值的C++实现
+```C++
+#include <vector>
+using std::vector;
+using std::copy;
+
+class LU_triple_diagonal_matrix_1;
+
+class LU_triple_diagonal_matrix_2;
+
+class Cubic_spline_interpolation_1
+{
+public:
+	Cubic_spline_interpolation_1(const vector<float>& x, const vector<float>& y)
+	{
+		Set_interpolation_nodes(x, y);
+	}
+
+	virtual ~Cubic_spline_interpolation_1()
+	{
+
+	}
+
+	virtual void Set_interpolation_nodes(const vector<float>& x, const vector<float>& y)
+	{
+		x_ = x;
+		y_ = y;
+		n_ = int(x.size()) - 1;
+		h_.resize(n_);
+		M_.resize(n_ + 1);
+		mu_.resize(n_ + 1);
+		lambda_.resize(n_ + 1);
+		d_.resize(n_ + 1);
+		for (size_t j = 0; j < n_; j++)
+		{
+			h_[j] = x_[j + 1] - x_[j];
+		}
+		for (size_t j = 1; j < n_; j++)
+		{
+			float temp = h_[j - 1] + h_[j];
+			mu_[j] = h_[j - 1] / temp;
+			lambda_[j] = h_[j] / temp;
+			d_[j] = 6.f * ((y_[j + 1] - y_[j]) / h_[j] - (y_[j] - y_[j - 1]) / h_[j - 1]) / temp;
+		}
+	}
+
+	virtual void Set_first_boundary_conditions(float dy0, float dyn)
+	{
+		lambda_[0] = 1.f;
+		d_[0] = 6.f * ((y_[1] - y_[0]) / h_[0] - dy0) / h_[0];
+		mu_[n_] = 1.f;
+		d_[n_] = 6.f * (dyn - (y_[n_] - y_[n_ - 1]) / h_[n_ - 1]) / h_[n_ - 1];
+		LU_triple_diagonal_matrix_1 solver(mu_, vector<float>(n_ + 1, 2.f), lambda_);
+		solver.Solve(d_, M_);
+	}
+
+	virtual void Set_second_boundary_conditions(float ddy0 = 0.f, float ddyn = 0.f)
+	{
+		lambda_[0] = 0.f;
+		d_[0] = 2.f * ddy0;
+		mu_[n_] = 0.f;
+		d_[n_] = 2.f * ddyn;
+		LU_triple_diagonal_matrix_1 solver(mu_, vector<float>(n_ + 1, 2.f), lambda_);
+		solver.Solve(d_, M_);
+	}
+
+	virtual void Set_periodic_boundary_conditions()
+	{
+		float temp = h_[n_ - 1] + h_[0];
+		mu_[n_] = h_[n_ - 1] / temp;
+		lambda_[n_] = h_[0] / temp;
+		d_[n_] = 6.f * ((y_[1] - y_[0]) / h_[0] - (y_[n_] - y_[n_ - 1]) / h_[n_ - 1]) / temp;
+
+		vector<float> temp_mu;
+		temp_mu.assign(++mu_.begin(), mu_.end());
+		vector<float> temp_lambda;
+		temp_lambda.assign(++lambda_.begin(), lambda_.end());
+		LU_triple_diagonal_matrix_2 solver(temp_mu, vector<float>(n_, 2.f), temp_lambda);
+		vector<float> temp_d;
+		temp_d.assign(++d_.begin(), d_.end());
+		vector<float> temp_M(n_);
+		solver.Solve(temp_d, temp_M);
+		copy(temp_M.begin(), temp_M.end(), ++M_.begin());
+		M_[0] = M_[n_];
+	}
+
+	virtual float Eval(float x)
+	{
+		if (x_.at(0) > x || x_.at(n_) < x)
+		{
+			return 0.f;
+		}
+
+		for (size_t j = 0; j < n_; j++)
+		{
+			if (x_[j + 1] >= x)
+			{
+				float r = x_[j + 1] - x;
+				float l = x - x_[j];
+				return ((r * r * r * M_[j] + l * l * l * M_[j + 1]) / 6.f + ((y_[j] - h_[j] * h_[j] * M_[j] / 6.f) * r + (y_[j + 1] - h_[j] * h_[j] * M_[j + 1] / 6.f) * l)) / h_[j];
+			}
+		}
+	}
+
+private:
+	int n_;
+	vector<float> x_;
+	vector<float> y_;
+	vector<float> h_;
+	vector<float> M_;
+	vector<float> mu_;
+	vector<float> lambda_;
+	vector<float> d_;
+};
+```
+
+* * *
+
 构造三次样条插值函数的另一种方法：假定 $ S'(x_j) = m_j, (j = 0, 1, ... , n) $ ，根据两点三次埃尔米特插值， $ S(x) $ 在 $ [x_j, x_{j+1}] $ 上可表示为
 
 $$
@@ -588,22 +706,6 @@ $$
 
 * * *
 
-关于三次样条插值的收敛性和误差估计有如下定理（没有证明，作者说太复杂）
-
-定理：设 $ f(x) \in C^4[a, b] $ ， $ S(x) $ 为满足第一种或第二种边界条件的三次样条函数，令 $ h = \underset {0 \leqslant j \leqslant n-1} {max} h_j (h_j = x_{j+1} - x_j) $ 则有估计式
-
-$$
-\underset {a \leqslant x \leqslant b} {max} \vert f^{(k)}(x) - S^{(k)}(x) \vert \leqslant C_k \underset {a \leqslant x \leqslant b} {max} \vert f^{(4)}(x) \vert h^{4-k}, k = 0, 1, 2
-$$
-
-其中 $ C_0 = \frac {5} {384}, C_1 = \frac {1} {24}, C_2 = \frac {3} {8} $ 。
-
-* * *
-
-根据上述定理可知，当 $ h \rightarrow 0 $ 时， $ S(x), S'(x), S''(x) $ 均分别一致收敛于 $ f(x), f'(x), f''(x) $ 。
-
-* * *
-
 三次样条插值的C++实现
 ```C++
 #include <vector>
@@ -617,111 +719,6 @@ class Piecewise_cubic_Hermite_interpolation;
 class LU_triple_diagonal_matrix_1;
 
 class LU_triple_diagonal_matrix_2;
-
-class Cubic_spline_interpolation_1
-{
-public:
-	Cubic_spline_interpolation_1(const vector<float>& x, const vector<float>& y)
-	{
-		Set_interpolation_nodes(x, y);
-	}
-
-	virtual ~Cubic_spline_interpolation_1()
-	{
-
-	}
-
-	virtual void Set_interpolation_nodes(const vector<float>& x, const vector<float>& y)
-	{
-		x_ = x;
-		y_ = y;
-		n_ = int(x.size()) - 1;
-		h_.resize(n_);
-		M_.resize(n_ + 1);
-		mu_.resize(n_ + 1);
-		lambda_.resize(n_ + 1);
-		d_.resize(n_ + 1);
-		for (size_t j = 0; j < n_; j++)
-		{
-			h_[j] = x_[j + 1] - x_[j];
-		}
-		for (size_t j = 1; j < n_; j++)
-		{
-			float temp = h_[j - 1] + h_[j];
-			mu_[j] = h_[j - 1] / temp;
-			lambda_[j] = h_[j] / temp;
-			d_[j] = 6.f * ((y_[j + 1] - y_[j]) / h_[j] - (y_[j] - y_[j - 1]) / h_[j - 1]) / temp;
-		}
-	}
-
-	virtual void Set_first_boundary_conditions(float dy0, float dyn)
-	{
-		lambda_[0] = 1.f;
-		d_[0] = 6.f * ((y_[1] - y_[0]) / h_[0] - dy0) / h_[0];
-		mu_[n_] = 1.f;
-		d_[n_] = 6.f * (dyn - (y_[n_] - y_[n_ - 1]) / h_[n_ - 1]) / h_[n_ - 1];
-		LU_triple_diagonal_matrix_1 solver(mu_, vector<float>(n_ + 1, 2.f), lambda_);
-		solver.Solve(d_, M_);
-	}
-
-	virtual void Set_second_boundary_conditions(float ddy0 = 0.f, float ddyn = 0.f)
-	{
-		lambda_[0] = 0.f;
-		d_[0] = 2.f * ddy0;
-		mu_[n_] = 0.f;
-		d_[n_] = 2.f * ddyn;
-		LU_triple_diagonal_matrix_1 solver(mu_, vector<float>(n_ + 1, 2.f), lambda_);
-		solver.Solve(d_, M_);
-	}
-
-	virtual void Set_periodic_boundary_conditions()
-	{
-		float temp = h_[n_ - 1] + h_[0];
-		mu_[n_] = h_[n_ - 1] / temp;
-		lambda_[n_] = h_[0] / temp;
-		d_[n_] = 6.f * ((y_[1] - y_[0]) / h_[0] - (y_[n_] - y_[n_ - 1]) / h_[n_ - 1]) / temp;
-
-		vector<float> temp_mu;
-		temp_mu.assign(++mu_.begin(), mu_.end());
-		vector<float> temp_lambda;
-		temp_lambda.assign(++lambda_.begin(), lambda_.end());
-		LU_triple_diagonal_matrix_2 solver(temp_mu, vector<float>(n_, 2.f), temp_lambda);
-		vector<float> temp_d;
-		temp_d.assign(++d_.begin(), d_.end());
-		vector<float> temp_M(n_);
-		solver.Solve(temp_d, temp_M);
-		copy(temp_M.begin(), temp_M.end(), ++M_.begin());
-		M_[0] = M_[n_];
-	}
-
-	virtual float Eval(float x)
-	{
-		if (x_.at(0) > x || x_.at(n_) < x)
-		{
-			return 0.f;
-		}
-
-		for (size_t j = 0; j < n_; j++)
-		{
-			if (x_[j + 1] >= x)
-			{
-				float r = x_[j + 1] - x;
-				float l = x - x_[j];
-				return ((r * r * r * M_[j] + l * l * l * M_[j + 1]) / 6.f + ((y_[j] - h_[j] * h_[j] * M_[j] / 6.f) * r + (y_[j + 1] - h_[j] * h_[j] * M_[j + 1] / 6.f) * l)) / h_[j];
-			}
-		}
-	}
-
-private:
-	int n_;
-	vector<float> x_;
-	vector<float> y_;
-	vector<float> h_;
-	vector<float> M_;
-	vector<float> mu_;
-	vector<float> lambda_;
-	vector<float> d_;
-};
 
 class Cubic_spline_interpolation_2
 {
@@ -819,6 +816,22 @@ private:
 	Piecewise_cubic_Hermite_interpolation piecewise_H_3_;
 };
 ```
+
+* * *
+
+关于三次样条插值的收敛性和误差估计有如下定理（没有证明，作者说太复杂）
+
+定理：设 $ f(x) \in C^4[a, b] $ ， $ S(x) $ 为满足第一种或第二种边界条件的三次样条函数，令 $ h = \underset {0 \leqslant j \leqslant n-1} {max} h_j (h_j = x_{j+1} - x_j) $ 则有估计式
+
+$$
+\underset {a \leqslant x \leqslant b} {max} \vert f^{(k)}(x) - S^{(k)}(x) \vert \leqslant C_k \underset {a \leqslant x \leqslant b} {max} \vert f^{(4)}(x) \vert h^{4-k}, k = 0, 1, 2
+$$
+
+其中 $ C_0 = \frac {5} {384}, C_1 = \frac {1} {24}, C_2 = \frac {3} {8} $ 。
+
+* * *
+
+根据上述定理可知，当 $ h \rightarrow 0 $ 时， $ S(x), S'(x), S''(x) $ 均分别一致收敛于 $ f(x), f'(x), f''(x) $ 。
 
 * * *
 
