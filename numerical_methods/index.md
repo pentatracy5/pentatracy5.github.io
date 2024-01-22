@@ -19,7 +19,7 @@ title: 数值计算
 
 [三次样条插值](./cubic_spline_interpolation/index.html)
 
-[函数逼近](./funciton_approximation/index.html)
+[函数逼近](./function_approximation/index.html)
 
 3.2 正交多项式(57)
 
