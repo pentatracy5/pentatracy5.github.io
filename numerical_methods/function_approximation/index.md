@@ -17,7 +17,7 @@ $$
 x = \alpha_1 x_1 + \alpha_2 x_2 + ... + \alpha_n x_n
 $$
 
-则 $ x_1, x_2, ... , x_n $ 称为空间 $ S $ 的一组基，记为 $ S = span\{ x_1, x_2, ... , x_n \} $ ，并称空间 $ S $ 为 $ n $ **维空间**，系数 $ \alpha_1, \alpha_2, ... , \alpha_n $ 称为 $ x $ 在基 $ x_1, x_2, ... , x_n $ 下的**坐标**，记做 $ (\alpha_1, \alpha_2, ... , \alpha_n) $ ，如果 $ S $ 中有无限个线性无关元素 $ x_1, x_2, ... , x_n, ... $ ，则称 $ S $ 为**无限维线性空间**。
+则 $ x_1, x_2, ... , x_n $ 称为空间 $ S $ 的一组基，记为 $ S = span \{ x_1, x_2, ... , x_n \} $ ，并称空间 $ S $ 为 $ n $ **维空间**，系数 $ \alpha_1, \alpha_2, ... , \alpha_n $ 称为 $ x $ 在基 $ x_1, x_2, ... , x_n $ 下的**坐标**，记做 $ (\alpha_1, \alpha_2, ... , \alpha_n) $ ，如果 $ S $ 中有无限个线性无关元素 $ x_1, x_2, ... , x_n, ... $ ，则称 $ S $ 为**无限维线性空间**。
 
 * * *
 
@@ -27,7 +27,7 @@ $$
 p(x) = a_0 + a_1 x + ... + a_n x^n
 $$
 
-它由 $ n+1 $ 个系数 $ (a_0, a_1, ... , a_n) $ 唯一确定。 $ 1, x, ... , x^n $ 线性无关，故而是 $ H_n $ 的一组基，有 $ H_n = span\{ 1, x, ... , x^n \} $ ，且 $ (a_0, a_1, ... , a_n) $ 是 $ p(x) $ 的坐标向量， $ H_n $ 是 $ n+1 $ 维的。
+它由 $ n+1 $ 个系数 $ (a_0, a_1, ... , a_n) $ 唯一确定。 $ 1, x, ... , x^n $ 线性无关，故而是 $ H_n $ 的一组基，有 $ H_n = span \{ 1, x, ... , x^n \} $ ，且 $ (a_0, a_1, ... , a_n) $ 是 $ p(x) $ 的坐标向量， $ H_n $ 是 $ n+1 $ 维的。
 
 * * *
 
@@ -154,7 +154,7 @@ $$
 
 * * *
 
-定义：若给定实数 $ \omega_i > 0 (i = 1, 2, ... , n) $ ，称 $ \{ omega_i \} $ 为**权系数**，则在 $ \mathbb{R}^n $ 上可定义**加权内积**为
+定义：若给定实数 $ \omega_i > 0 (i = 1, 2, ... , n) $ ，称 $ \{ \omega_i \} $ 为**权系数**，则在 $ \mathbb{R}^n $ 上可定义**加权内积**为
 
 $$
 (\pmb{x}, \pmb{y}) = \sum_{i=1}^n \omega_i x_i y_i
@@ -182,7 +182,7 @@ $$
 
 * * *
 
-若 $ \varphi_0, \varphi_1, ... , \varphi_n $ 是 $ C[a, b] $ 中的线性无关函数族，记 $ \Phi = span\{ \varphi_0, \varphi_1, ... , \varphi_n \} $ ，它的格拉姆矩阵为
+若 $ \varphi_0, \varphi_1, ... , \varphi_n $ 是 $ C[a, b] $ 中的线性无关函数族，记 $ \Phi = span \{ \varphi_0, \varphi_1, ... , \varphi_n \} $ ，它的格拉姆矩阵为
 
 $$
 G = G(\varphi_0, \varphi_1, ... , \varphi_n) = \begin{bmatrix}
@@ -213,7 +213,7 @@ $$
 
 * * *
 
-更一般地，若 $ \varphi_0, \varphi_1, ... , \varphi_n $ 是 $ C[a, b] $ 中的线性无关函数族， $ P^* (x) \in \Phi = span\{ \varphi_0, \varphi_1, ... , \varphi_n \} $ ，且
+更一般地，若 $ \varphi_0, \varphi_1, ... , \varphi_n $ 是 $ C[a, b] $ 中的线性无关函数族， $ P^* (x) \in \Phi = span \{ \varphi_0, \varphi_1, ... , \varphi_n \} $ ，且
 
 $$
 \Vert f(x) - P^* (x) \Vert = \underset {P \in \Phi} {min} \Vert f(x) - P(x) \Vert
