@@ -361,7 +361,7 @@ $$
 \end{aligned}
 $$
 
-[...img]
+![P_0(x), P_1(x), P_2(x), P_3(x)](Legendre_polynomials.png)
 
 * * *
 
