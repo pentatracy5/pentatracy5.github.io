@@ -21,7 +21,7 @@ title: 数值计算
 
 [函数逼近](./function_approximation/index.html)
 
-[正交多项式](./othogonal_polynomials/index.html)
+[正交多项式](./orthogonal_polynomials/index.html)
 
 3.3 最佳平方逼近(67)
 
