@@ -180,6 +180,8 @@ $$
 (f(x), g(x)) = \int_a^b \rho(x) f(x) g(x) dx
 $$
 
+若 $ [a, b] $ 为无限区间，则这种方法定义的积分不一定存在，容易在区间 $ [0, +\infty] $ 上构造反例，取 $ \rho(x) = e^{-x}, f(x) = e^x, g(x) = 1 \in C[0, +\infty] $ 。
+
 * * *
 
 若 $ \varphi_0, \varphi_1, ... , \varphi_n $ 是 $ C[a, b] $ 中的线性无关函数族，记 $ \Phi = span \lbrace \varphi_0, \varphi_1, ... , \varphi_n \rbrace $ ，它的格拉姆矩阵为
