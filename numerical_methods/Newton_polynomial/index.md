@@ -167,14 +167,14 @@ $$
 从而
 
 $$
-\Delta^n f_k = (E - I)^n f_k = \sum_{j=0}^n (-1)^j \tbinom {n} {j} E^{n-j} f_k = \sum_{j=0}^n (-1)^j \tbinom {n} {j} f_{n+k-j}
+\Delta^n f_k = (E - I)^n f_k = \sum_{j=0}^n (-1)^j \binom {n} {j} E^{n-j} f_k = \sum_{j=0}^n (-1)^j \binom {n} {j} f_{n+k-j}
 $$
 
 $$
-f_{n+k} = E^n f_k = (I + \Delta)^n f_k = \sum_{j=0}^n \tbinom {n} {j} \Delta^j f_k
+f_{n+k} = E^n f_k = (I + \Delta)^n f_k = \sum_{j=0}^n \binom {n} {j} \Delta^j f_k
 $$
 
-其中 $ \tbinom {n} {j} = \frac {n!} {(n-j)! j!} $ 为二项式展开系数。由后两式可见各阶差分和函数值可互相线性表出。
+其中 $ \binom {n} {j} = \frac {n!} {(n-j)! j!} $ 为二项式展开系数。由后两式可见各阶差分和函数值可互相线性表出。
 
 * * *
 
