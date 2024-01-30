@@ -17,7 +17,7 @@ title: 三次样条插值
 
 * * *
 
-定义：设已知节点 $ a = x_0 < x_1 < ... < x_n = b $ 上的函数值 $ f_0, f_1, ... , f_n $ ，记 $ h_k = x_{k+1} - x_k, h = \underset {k} {max} h_k $ ，求一折线函数 $ I_h(x) $ 满足：
+定义：设已知节点 $ a = x_0 < x_1 < ... < x_n = b $ 上的函数值 $ f_0, f_1, ... , f_n $ ，记 $ h_k = x_{k+1} - x_k, h = \underset {k} {\max} h_k $ ，求一折线函数 $ I_h(x) $ 满足：
 
 （1） $ I_h(x) \in C[a, b] $ 
 
@@ -38,15 +38,15 @@ $$
 分段线性插值的误差估计可利用插值余项得到
 
 $$
-\underset {x_k \leqslant x \leqslant x_{k+1}} {max} \vert f(x) - I_h(x) \vert \leqslant \frac {M_2} {2} \underset {x_k \leqslant x \leqslant x_{k+1}} {max} \vert (x - x_k) (x - x_{k+1}) \vert
+\underset {x_k \leqslant x \leqslant x_{k+1}} {\max} \vert f(x) - I_h(x) \vert \leqslant \frac {M_2} {2} \underset {x_k \leqslant x \leqslant x_{k+1}} {\max} \vert (x - x_k) (x - x_{k+1}) \vert
 $$
 
-其中 $ M_2 = \underset {a \leqslant x \leqslant b} {max} \vert f''(x) \vert $ 。
+其中 $ M_2 = \underset {a \leqslant x \leqslant b} {\max} \vert f''(x) \vert $ 。
 
 进而有
 
 $$
-\underset {a \leqslant x \leqslant b} {max} \vert f(x) - I_h(x) \vert \leqslant \frac {M_2} {8} h^2
+\underset {a \leqslant x \leqslant b} {\max} \vert f(x) - I_h(x) \vert \leqslant \frac {M_2} {8} h^2
 $$
 
 由此还可得
@@ -134,15 +134,15 @@ $$
 定理：设 $ f \in C^4[a, b] $ ， $ I_h(x) $ 为 $ f(x) $ 在节点 $ a = x_0 < x_1 < ... < x_n = b $ 上的分段三次埃尔米特插值多项式，则有
 
 $$
-\underset {a \leqslant x \leqslant b} {max} \vert f(x) - I_h(x) \vert \leqslant \frac {h^4} {384} \underset {a \leqslant x \leqslant b} {max} \vert f^{(4)}(x) \vert
+\underset {a \leqslant x \leqslant b} {\max} \vert f(x) - I_h(x) \vert \leqslant \frac {h^4} {384} \underset {a \leqslant x \leqslant b} {\max} \vert f^{(4)}(x) \vert
 $$
 
-其中 $ h = \underset {0 \leqslant k \leqslant n-1} {max} (x_{k+1} - x_k) $ 。
+其中 $ h = \underset {0 \leqslant k \leqslant n-1} {\max} (x_{k+1} - x_k) $ 。
 
 证明：利用三次埃尔米特插值的余项可得误差估计
 
 $$
-\underset {x_k \leqslant x \leqslant x_{k+1}} {max} \vert f(x) - I_h(x) \vert \leqslant \frac {(x_{k+1} - x_k)^4} {384} \underset {x_k \leqslant x \leqslant x_{k+1}} {max} \vert f^{(4)}(x) \vert
+\underset {x_k \leqslant x \leqslant x_{k+1}} {\max} \vert f(x) - I_h(x) \vert \leqslant \frac {(x_{k+1} - x_k)^4} {384} \underset {x_k \leqslant x \leqslant x_{k+1}} {\max} \vert f^{(4)}(x) \vert
 $$
 
 易知结论成立。
@@ -821,10 +821,10 @@ private:
 
 关于三次样条插值的收敛性和误差估计有如下定理（没有证明，作者说太复杂）
 
-定理：设 $ f(x) \in C^4[a, b] $ ， $ S(x) $ 为满足第一种或第二种边界条件的三次样条函数，令 $ h = \underset {0 \leqslant j \leqslant n-1} {max} h_j (h_j = x_{j+1} - x_j) $ 则有估计式
+定理：设 $ f(x) \in C^4[a, b] $ ， $ S(x) $ 为满足第一种或第二种边界条件的三次样条函数，令 $ h = \underset {0 \leqslant j \leqslant n-1} {\max} h_j (h_j = x_{j+1} - x_j) $ 则有估计式
 
 $$
-\underset {a \leqslant x \leqslant b} {max} \vert f^{(k)}(x) - S^{(k)}(x) \vert \leqslant C_k \underset {a \leqslant x \leqslant b} {max} \vert f^{(4)}(x) \vert h^{4-k}, k = 0, 1, 2
+\underset {a \leqslant x \leqslant b} {\max} \vert f^{(k)}(x) - S^{(k)}(x) \vert \leqslant C_k \underset {a \leqslant x \leqslant b} {\max} \vert f^{(4)}(x) \vert h^{4-k}, k = 0, 1, 2
 $$
 
 其中 $ C_0 = \frac {5} {384}, C_1 = \frac {1} {24}, C_2 = \frac {3} {8} $ 。
