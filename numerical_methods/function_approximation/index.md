@@ -260,8 +260,8 @@ $$
 其中
 
 $$
-P_k(x) = \tbinom {n} {k} x^k (1 - x)^{n-k} \\
-\tbinom {n} {k} = \frac {n (n-1) ... (n-k+1)} {k!}
+P_k(x) = \binom {n} {k} x^k (1 - x)^{n-k} \\
+\binom {n} {k} = \frac {n (n-1) ... (n-k+1)} {k!}
 $$
 
 证明 $ \lim \limits_{n \rightarrow \infty} B_n(f, x) = f(x) $ 在 $ [0, 1] $ 上一致成立。
