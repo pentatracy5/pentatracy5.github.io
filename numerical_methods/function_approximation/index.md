@@ -49,7 +49,7 @@ $$
 
 对于在 $ \mathbb{R}^n $ 上的向量 $ \pmb{x} = (x_1, x_2, ... , x_n)^T \in \mathbb{R}^n $ ，有三种常用范数：
 
-（1） $ \Vert \pmb{x} \Vert_{\infty} = \underset {1 \leqslant i \leqslant n} {max} \vert x_i \vert $ ，称为 $ \infty $ -范数或最大范数
+（1） $ \Vert \pmb{x} \Vert_{\infty} = \underset {1 \leqslant i \leqslant n} {\max} \vert x_i \vert $ ，称为 $ \infty $ -范数或最大范数
 
 （2） $ \Vert \pmb{x} \Vert_1 = \sum_{i=1}^n \vert x_i \vert $ ，称为 $ 1 $ -范数
 
@@ -59,7 +59,7 @@ $$
 
 对于连续函数空间 $ C[a, b] $ ，若 $ f \in C[a, b] $ ，可定义三种常用范数：
 
-（1） $ \Vert f \Vert_{\infty} = \underset {a \leqslant x \leqslant b} {max} \vert f(x) \vert $ ，称为 $ \infty $ -范数
+（1） $ \Vert f \Vert_{\infty} = \underset {a \leqslant x \leqslant b} {\max} \vert f(x) \vert $ ，称为 $ \infty $ -范数
 
 （2） $ \Vert f \Vert_1 = \int_a^b \vert f(x) \vert dx $ ，称为 $ 1 $ -范数
 
@@ -246,7 +246,7 @@ $$
 定理（魏尔斯特拉斯定理）：设 $ f(x) \in C[a, b] $ ，则对任何 $ \epsilon > 0 $ ，总存在一个代数多项式 $ p(x) $ ，使得
 
 $$
-\underset {a \leqslant x \leqslant b} {max} \vert f(x) - p(x) \vert < \epsilon
+\underset {a \leqslant x \leqslant b} {\max} \vert f(x) - p(x) \vert < \epsilon
 $$
 
 在 $ [a, b] $ 上一致成立。
