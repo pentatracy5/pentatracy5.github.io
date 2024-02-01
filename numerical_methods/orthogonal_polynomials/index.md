@@ -361,7 +361,7 @@ $$
 \end{aligned}
 $$
 
-![P_0(x), P_1(x), P_2(x), P_3(x)](Legendre_polynomials.png)
+![P_0(x), P_1(x), P_2(x), P_3(x)](orthogonal_polynomials_1.png)
 
 * * *
 
@@ -416,7 +416,7 @@ $$
 \end{aligned}
 $$
 
-[...img]
+![T_0(x), T_1(x), T_2(x), T_3(x)](orthogonal_polynomials_2.png)
 
 * * *
 
@@ -458,7 +458,7 @@ $$
 
 这两组点称为**切比雪夫点**。切比雪夫点恰好是单位圆周上等距分布点的横坐标，这些点的横坐标在接近区间 $ [-1, 1] $ 的端点处是密集的。
 
-[...img]
+![Chebyshev points](orthogonal_polynomials_3.png)
 
 * * *
 
@@ -608,7 +608,7 @@ $$
 x_k = \frac {b-a} {2} \cos \frac {2k+1} {2n+2} \pi + \frac {a+b} {2}, k = 0, 1, ... , n
 $$
 
-[...img]
+![L_10(x), ~L_10(x)](orthogonal_polynomials_4.png)
 
 * * *
 
