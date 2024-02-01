@@ -492,7 +492,7 @@ $$
 
 假设结论对 $ n < m $ 的情况成立，对 $ n = m $ 的情况做如下两种讨论：
 
-若 $ P(x) \in {\widetilde{H}}_{n}(x) $ 的次数小于 $ n $ ，则有 $ P(x) \in {\widetilde{H}}_{n-1}(x) $ ，从而
+若 $ P(x) \in \widetilde{H_n}(x) $ 的次数小于 $ n $ ，则有 $ P(x) \in \widetilde{H_{n-1}}(x) $ ，从而
 
 $$
 \underset {-1 \leqslant x \leqslant 1} {\max} \vert \widetilde{T_n}(x) \vert = \frac {1} {2^{n-1}} < \frac {1} {2^{n-2}} = \underset {-1 \leqslant x \leqslant 1} {\max} \vert \widetilde{T_{n-1}}(x) \vert \leqslant \underset {-1 \leqslant x \leqslant 1} {\max} \vert P(x) \vert
