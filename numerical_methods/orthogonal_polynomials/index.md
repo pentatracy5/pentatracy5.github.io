@@ -373,6 +373,52 @@ $ P_{2k}(x) $ 只含 $ x $ 的偶次幂，$ P_{2k+1}(x) $ 只含 $ x $ 的奇次
 
 * * *
 
+勒让德多项式的C++实现
+```C++
+class Legendre_polynomials
+{
+public:
+	Legendre_polynomials()
+	{
+
+	}
+
+	~Legendre_polynomials()
+	{
+
+	}
+
+	float Eval(float x, unsigned int n)
+	{
+		if (0 == n)
+		{
+			return 1.f;
+		}
+
+		if (1 == n)
+		{
+			return x;
+		}
+
+		unsigned int i = 2;
+		float p0 = 1.f;
+		float p1 = x;
+				float p2 = 0.f;
+		while (n >= i)
+		{
+			p2 = ((2.f * i - 1.f) * x * p1 - (i - 1.f) * p0) / i;
+			p0 = p1;
+			p1 = p2;
+			++i;
+		}
+
+		return p2;
+	}
+};
+```
+
+* * *
+
 定义：当区间为 $ [-1, 1] $ ，权函数为 $ \rho(x) \equiv \frac {1} {\sqrt{1 - x^2}} $ 时，由 $ 1, x, ... , x^n, ... $ 正交化得到的多项式称为**切比雪夫多项式**，它可表示为
 
 $$
@@ -612,6 +658,52 @@ $$
 
 * * *
 
+切比雪夫多项式的C++实现
+```C++
+class Chebyshev_polynomials_of_the_first_kind
+{
+public:
+	Chebyshev_polynomials_of_the_first_kind()
+	{
+
+	}
+
+	~Chebyshev_polynomials_of_the_first_kind()
+	{
+
+	}
+
+		float Eval(float x, unsigned int n)
+	{
+		if (0 == n)
+		{
+			return 1.f;
+		}
+
+		if (1 == n)
+		{
+			return x;
+		}
+
+		unsigned int i = 2;
+		float t0 = 1.f;
+		float t1 = x;
+				float t2 = 0.f;
+		while (n >= i)
+		{
+			t2 = 2.f * x * t1 - t0;
+			t0 = t1;
+			t1 = t2;
+			++i;
+		}
+
+		return t2;
+	}
+};
+```
+
+* * *
+
 定义：在区间 $ [-1, 1] $ 上带权 $ \rho(x) = \sqrt{1 - x^2} $ 的正交多项式称为**第二类切比雪夫多项式**，其表达式为
 
 $$
@@ -642,6 +734,52 @@ U_{n+1}(x) = 2x U_n(x) - U_{n-1}(x), n = 1, 2, ...
 $$
 
 证明：考虑三角恒等式 $ \sin (n+2) \theta = 2 \cos \theta \sin (n+1) \theta - \sin n \theta $ 易得。
+
+* * *
+
+第二类切比雪夫多项式的C++实现
+```C++
+class Chebyshev_polynomials_of_the_second_kind
+{
+public:
+	Chebyshev_polynomials_of_the_second_kind()
+	{
+
+	}
+
+	~Chebyshev_polynomials_of_the_second_kind()
+	{
+
+	}
+
+		float Eval(float x, unsigned int n)
+	{
+		if (0 == n)
+		{
+			return 1.f;
+		}
+
+		if (1 == n)
+		{
+			return 2.f * x;
+		}
+
+		unsigned int i = 2;
+		float u0 = 1.f;
+		float u1 = 2.f * x;
+				float u2 = 0.f;
+		while (n >= i)
+		{
+			u2 = 2.f * x * u1 - u0;
+			u0 = u1;
+			u1 = u2;
+			++i;
+		}
+
+		return u2;
+	}
+};
+```
 
 * * *
 
@@ -716,6 +854,52 @@ $$
 
 * * *
 
+拉盖尔多项式的C++实现
+```C++
+class Laguerre_polynomials
+{
+public:
+	Laguerre_polynomials()
+	{
+
+	}
+
+	~Laguerre_polynomials()
+	{
+
+	}
+
+	float Eval(float x, unsigned int n)
+	{
+		if (0 == n)
+		{
+			return 1.f;
+		}
+
+		if (1 == n)
+		{
+			return 1.f - x;
+		}
+
+		unsigned int i = 2;
+		float l0 = 1.f;
+		float l1 = 1.f - x;
+		float l2 = 0.f;
+		while (n >= i)
+		{
+			l2 = (2.f * i - 1.f - x) * l1 - (i - 1.f) * (i - 1.f) * l0;
+			l0 = l1;
+			l1 = l2;
+			++i;
+		}
+
+		return l2;
+	}
+};
+```
+
+* * *
+
 埃尔米特多项式的递推公式
 
 $$
@@ -750,6 +934,52 @@ $$
 $$
 
 证明：令 $ \varphi(x) = e^{-x^2} $ ，利用证明勒让德多项式正交性的思路，结论成立。
+
+* * *
+
+埃尔米特多项式的C++实现
+```C++
+class Hermite_polynomials
+{
+public:
+	Hermite_polynomials()
+	{
+
+	}
+
+	~Hermite_polynomials()
+	{
+
+	}
+
+	float Eval(float x, unsigned int n)
+	{
+		if (0 == n)
+		{
+			return 1.f;
+		}
+
+		if (1 == n)
+		{
+			return 2.f * x;
+		}
+
+		unsigned int i = 2;
+		float h0 = 1.f;
+		float h1 = 2.f * x;
+		float h2 = 0.f;
+		while (n >= i)
+		{
+			h2 = 2.f * x * h1 - (2.f * i - 2.f) * h0;
+			h0 = h1;
+			h1 = h2;
+			++i;
+		}
+
+		return h2;
+	}
+};
+```
 
 * * *
 
