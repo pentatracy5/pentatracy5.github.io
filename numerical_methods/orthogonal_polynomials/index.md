@@ -217,8 +217,8 @@ $$
 $ P_n(x) $ 中首项 $ x^n $ 的系数为 $ \frac {(2n)!} {2^n (n!)^2} $ ，显然最高项次数为 $ 1 $ 的勒让德多项式为
 
 $$
-\widetilde{P}_0(x) = 1 \\
-\widetilde{P}_n(x) = \frac {n!} {(2n)!} \frac {d^n} {dx^n} (x^2 - 1)^n, n = 1, 2, ...
+\widetilde{P_0}(x) = 1 \\
+\widetilde{P_n}(x) = \frac {n!} {(2n)!} \frac {d^n} {dx^n} (x^2 - 1)^n, n = 1, 2, ...
 $$
 
 * * *
@@ -470,52 +470,52 @@ $ T_{2k}(x) $ 为偶函数，$ T_{2k+1}(x) $ 为奇函数。
 
 * * *
 
-$ T_n(x) $ 的最高次项系数是 $ 2^{n-1} $ 。若令 $ \widetilde{T}_0(x) = 1, \widetilde{T}_n(x) = \frac {T_n(x)} {2^{n-1}}, n = 1, 2, ... $ ，则 $ \widetilde{T}_n(x) $ 是首项系数为 $ 1 $ 的切比雪夫多项式。
+$ T_n(x) $ 的最高次项系数是 $ 2^{n-1} $ 。若令 $ \widetilde{T_0}(x) = 1, \widetilde{T_n}(x) = \frac {T_n(x)} {2^{n-1}}, n = 1, 2, ... $ ，则 $ \widetilde{T_n}(x) $ 是首项系数为 $ 1 $ 的切比雪夫多项式。
 
 * * *
 
-定理：设 $ n \geqslant 1 $ ， $ \widetilde{T}_n(x) $ 是首项系数为 $ 1 $ 的切比雪夫多项式， $ \widetilde{H}_n(x) $ 是首项系数为 $ 1 $ 的次数不超过 $ n $ 的多项式的集合，则
+定理：设 $ n \geqslant 1 $ ， $ \widetilde{T_n}(x) $ 是首项系数为 $ 1 $ 的切比雪夫多项式， $ \widetilde{H_n}(x) $ 是首项系数为 $ 1 $ 的次数不超过 $ n $ 的多项式的集合，则
 
 $$
-\underset {-1 \leqslant x \leqslant 1} {\max} \vert \widetilde{T}_n(x) \vert = \frac {1} {2^{n-1}} \leqslant \underset {-1 \leqslant x \leqslant 1} {\max} \vert P(x) \vert, \forall P(x) \in \widetilde{H}_n(x)
+\underset {-1 \leqslant x \leqslant 1} {\max} \vert \widetilde{T_n}(x) \vert = \frac {1} {2^{n-1}} \leqslant \underset {-1 \leqslant x \leqslant 1} {\max} \vert P(x) \vert, \forall P(x) \in \widetilde{H_n}(x)
 $$
 
 证明：数学归纳法。
 
-当 $ n = 1 $ 时， $ \widetilde{H}_n(x) = \lbrace P(x) = x + c \vert c \in \mathbb{R} \rbrace \cup \lbrace P(x) = 1 \rbrace $ ，从而
+当 $ n = 1 $ 时， $ \widetilde{H_n}(x) = \lbrace P(x) = x + c \vert c \in \mathbb{R} \rbrace \cup \lbrace P(x) = 1 \rbrace $ ，从而
 
 $$
-\underset {-1 \leqslant x \leqslant 1} {\max} \vert P(x) \vert = 1 = \underset {-1 \leqslant x \leqslant 1} {\max} \vert \widetilde{T}_n(x) \vert
+\underset {-1 \leqslant x \leqslant 1} {\max} \vert P(x) \vert = 1 = \underset {-1 \leqslant x \leqslant 1} {\max} \vert \widetilde{T_n}(x) \vert
 $$
 
 结论成立。
 
 假设结论对 $ n < m $ 的情况成立，对 $ n = m $ 的情况做如下两种讨论：
 
-若 $ P(x) \in \widetilde{H}_n(x) $ 的次数小于 $ n $ ，则有 $ P(x) \in \widetilde{H}_{n-1}(x) $ ，从而
+若 $ P(x) \in \widetilde{H_n}(x) $ 的次数小于 $ n $ ，则有 $ P(x) \in \widetilde{H_{n-1}}(x) $ ，从而
 
 $$
-\underset {-1 \leqslant x \leqslant 1} {\max} \vert \widetilde{T}_n(x) \vert = \frac {1} {2^{n-1}} < \frac {1} {2^{n-2}} = \underset {-1 \leqslant x \leqslant 1} {\max} \vert \widetilde{T}_{n-1}(x) \vert \leqslant \underset {-1 \leqslant x \leqslant 1} {\max} \vert P(x) \vert
+\underset {-1 \leqslant x \leqslant 1} {\max} \vert \widetilde{T_n}(x) \vert = \frac {1} {2^{n-1}} < \frac {1} {2^{n-2}} = \underset {-1 \leqslant x \leqslant 1} {\max} \vert \widetilde{T_{n-1}}(x) \vert \leqslant \underset {-1 \leqslant x \leqslant 1} {\max} \vert P(x) \vert
 $$
 
 结论成立。
 
-若 $ P(x) \in \widetilde{H}_n(x) $ 次数为 $ n $ ，用反证法。假设对 $ P(x) $ 有
+若 $ P(x) \in \widetilde{H_n}(x) $ 次数为 $ n $ ，用反证法。假设对 $ P(x) $ 有
 
 $$
-\underset {-1 \leqslant x \leqslant 1} {\max} \vert P(x) \vert < \underset {-1 \leqslant x \leqslant 1} {\max} \vert \widetilde{T}_n(x) \vert = \frac {1} {2^{n-1}}
+\underset {-1 \leqslant x \leqslant 1} {\max} \vert P(x) \vert < \underset {-1 \leqslant x \leqslant 1} {\max} \vert \widetilde{T_n}(x) \vert = \frac {1} {2^{n-1}}
 $$
 
-由 $ \widetilde{T}_n(x) $ 在 $ x_k^* = \cos \frac {k \pi} {n} \pi, k = 0, 1, ... , n $ 轮流取最大值 $ \frac {1} {2^{n-1}} $ 和最小值 $ -\frac {1} {2^{n-1}} $ 我们有
+由 $ \widetilde{T_n}(x) $ 在 $ x_k^* = \cos \frac {k \pi} {n} \pi, k = 0, 1, ... , n $ 轮流取最大值 $ \frac {1} {2^{n-1}} $ 和最小值 $ -\frac {1} {2^{n-1}} $ 我们有
 
 $$
-P( x_k^* ) - \widetilde{T}_n( x_k^* ) < 0, k = 2m, m \in \mathbb{Z} \\
-P( x_k^* ) - \widetilde{T}_n( x_k^* ) > 0, k = 2m+1, m \in \mathbb{Z}
+P( x_k^* ) - \widetilde{T_n}( x_k^* ) < 0, k = 2m, m \in \mathbb{Z} \\
+P( x_k^* ) - \widetilde{T_n}( x_k^* ) > 0, k = 2m+1, m \in \mathbb{Z}
 $$
 
-根据零点存在性定理有 $ P(x) - \widetilde{T}_n(x) $ 在 $ (-1, 1) $ 上至少有 $ n $ 个零点。
+根据零点存在性定理有 $ P(x) - \widetilde{T_n}(x) $ 在 $ (-1, 1) $ 上至少有 $ n $ 个零点。
 
-又 $ P(x), \widetilde{T}_n(x) $ 均是首一 $ n $ 次多项式，故 $ P(x) - \widetilde{T}_n(x) $ 次数不超过 $ n-1 $ ，由多项式恒等定理， $ P(x) \equiv \widetilde{T}_n(x) $ ，矛盾，从而结论成立。
+又 $ P(x), \widetilde{T_n}(x) $ 均是首一 $ n $ 次多项式，故 $ P(x) - \widetilde{T_n}(x) $ 次数不超过 $ n-1 $ ，由多项式恒等定理， $ P(x) \equiv \widetilde{T_n}(x) $ ，矛盾，从而结论成立。
 
 综上得证。
 
@@ -526,7 +526,7 @@ $$
 解：由题意，所求最佳逼近多项式 $ P_2^* (x) $ 应满足 $ \underset {-1 \leqslant x \leqslant 1} {\max} \vert f(x) - P_2^* (x) \vert $ 最小，而 $ f(x) - P_2^* (x) $ 是三次多项式且首项系数为 $ 2 $ ，故可记 $ f(x) - P_2^* (x) = 2 g(x) $ ， $ g(x) $ 是三次首一多项式。要使 $ \underset {-1 \leqslant x \leqslant 1} {\max} \vert f(x) - P_2^* (x) \vert $ 即 $ \underset {-1 \leqslant x \leqslant 1} {\max} \vert 2 g(x) \vert $ 最小，则 $ g(x) $ 需为三次首一切比雪夫多项式，从而
 
 $$
-P_2^* (x) = f(x) - 2 \widetilde{T}_3(x) = f(x) - \frac {T_3(x)} {2} = x^2 + \frac {7} {2} x - 1
+P_2^* (x) = f(x) - 2 \widetilde{T_3}(x) = f(x) - \frac {T_3(x)} {2} = x^2 + \frac {7} {2} x - 1
 $$
 
 * * *
@@ -593,7 +593,7 @@ $$
 由插值节点为 $ T_{n+1}(x) $ 的零点可得
 
 $$
-\underset {-1 \leqslant x \leqslant 1} {\max} \vert \omega_{n+1}(x) \vert = \underset {-1 \leqslant x \leqslant 1} {\max} \vert \widetilde{T}_{n+1}(x) \vert = \frac {1} {2^n}
+\underset {-1 \leqslant x \leqslant 1} {\max} \vert \omega_{n+1}(x) \vert = \underset {-1 \leqslant x \leqslant 1} {\max} \vert \widetilde{T_{n+1}}(x) \vert = \frac {1} {2^n}
 $$
 
 得证。
