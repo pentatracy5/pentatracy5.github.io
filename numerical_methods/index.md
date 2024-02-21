@@ -23,19 +23,11 @@ title: 数值计算
 
 [正交多项式](./orthogonal_polynomials/index.html)
 
-3.3 最佳平方逼近(67)
+[最佳平方逼近](./least_squares_approximation/index.html)
 
-3.3.1 最佳平方逼近及其计算(67)
+[最佳一致逼近多项式](./optimal_polynomials/index.html)
 
-3.3.2 用正交函数族作最佳平方逼近(69)
-
-3.3.3 切比雪夫级数(72)
-
-3.4 曲线拟合的最小二乘法(73)
-
-3.4.1 最小二乘法及其计算(73)
-
-3.4.2 用正交多项式作最小二乘拟合(76)
+[最小二乘法](./least_squares_method/index.html)
 
 3.5 有理逼近(78)
 
