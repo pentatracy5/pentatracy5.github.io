@@ -136,7 +136,7 @@ $$
 \sum_{i=0}^m \omega(x_i) \Big[ S^* (x_i) - y_i \Big]^2 = \underset {S(x) \in \varphi} {\min} \sum_{i=0}^m \omega(x_i) \Big[ S(x_i) - y_i \Big]^2
 $$
 
-证明：
+证明：类似于最佳平方逼近函数的证明过程。
 
 * * *
 
