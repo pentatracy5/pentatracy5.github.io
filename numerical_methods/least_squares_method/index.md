@@ -119,10 +119,6 @@ G = \begin{bmatrix}
 \varphi_0(x_m)  & \varphi_1(x_m)    & \cdots    & \varphi_n(x_m)
 \end{bmatrix}
 $$
-\vdots          & \vdots            &           & \vdots            \\
-\varphi_0(x_m)  & \varphi_1(x_m)    & \cdots    & \varphi_n(x_m)
-\end{bmatrix}
-$$
 
 也是满秩的，故 $ G $ 非奇异。
 
