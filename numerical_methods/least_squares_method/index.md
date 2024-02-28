@@ -75,7 +75,56 @@ $$
 
 定理：如果 $ \varphi_0(x), \varphi_1(x), ... , \varphi_n(x) \in C[a, b] $ 在 $ \lbrace x_i, i = 0, 1, ... , m \rbrace $ 上满足哈尔条件，则法方程的系数矩阵非奇异，从而法方程存在唯一解。
 
-证明：
+证明：由于 $ \varphi_0(x), \varphi_1(x), ... , \varphi_n(x) \in C[a, b] $ 在 $ \lbrace x_i, i = 0, 1, ... , m \rbrace $ 上满足哈尔条件，因此任取 $ \lbrace x_i, i = 0, 1, ... , m \rbrace $ 中的 $ n+1 $ 个点（不妨记为 $ x_0, x_1, ... , x_n $ ）都有
+
+$$
+\begin{bmatrix}
+\varphi_0(x_0)  & \varphi_1(x_0)    & \cdots    & \varphi_n(x_0)    \\
+\varphi_0(x_1)  & \varphi_1(x_1)    & \cdots    & \varphi_n(x_1)    \\
+\vdots          & \vdots            &           & \vdots            \\
+\varphi_0(x_n)  & \varphi_1(x_n)    & \cdots    & \varphi_n(x_n)
+\end{bmatrix}
+$$
+
+的行列式不为 $ 0 $ ，从而
+
+$$
+\begin{bmatrix}
+\varphi_0(x_0)  & \varphi_1(x_0)    & \cdots    & \varphi_n(x_0)    \\
+\varphi_0(x_1)  & \varphi_1(x_1)    & \cdots    & \varphi_n(x_1)    \\
+\vdots          & \vdots            &           & \vdots            \\
+\varphi_0(x_m)  & \varphi_1(x_m)    & \cdots    & \varphi_n(x_m)
+\end{bmatrix}
+$$
+
+满秩，进而
+
+$$
+G = \begin{bmatrix}
+\varphi_0(x_0)  & \varphi_0(x_1)    & \cdots    & \varphi_0(x_m)    \\
+\varphi_1(x_0)  & \varphi_1(x_1)    & \cdots    & \varphi_1(x_m)    \\
+\vdots          & \vdots            &           & \vdots            \\
+\varphi_n(x_0)  & \varphi_n(x_1)    & \cdots    & \varphi_n(x_m)
+\end{bmatrix}
+\begin{bmatrix}
+\omega(x_0) &               &           &               \\
+            & \omega(x_1)   &           &               \\
+            &               & \ddots    &               \\
+            &               &           & \omega(x_m)
+\end{bmatrix}
+\begin{bmatrix}
+\varphi_0(x_0)  & \varphi_1(x_0)    & \cdots    & \varphi_n(x_0)    \\
+\varphi_0(x_1)  & \varphi_1(x_1)    & \cdots    & \varphi_n(x_1)    \\
+\vdots          & \vdots            &           & \vdots            \\
+\varphi_0(x_m)  & \varphi_1(x_m)    & \cdots    & \varphi_n(x_m)
+\end{bmatrix}
+$$
+\vdots          & \vdots            &           & \vdots            \\
+\varphi_0(x_m)  & \varphi_1(x_m)    & \cdots    & \varphi_n(x_m)
+\end{bmatrix}
+$$
+
+也是满秩的，故 $ G $ 非奇异。
 
 * * *
 
