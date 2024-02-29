@@ -144,10 +144,12 @@ $$
 
 * * *
 
-通常对于 $ n=1 $ 的简单情形都可通过求法方程的方法得到 $ S^*(x) $ ，若 $ \omega(x) \equiv 1 $ 且 $ \varphi = span \lbrace 1, x \rbrace $ ，这种情形可得到线性回归的计算公式
+通常对于 $ n=1 $ 的简单情形都可通过求法方程的方法得到 $ S^*(x) $ ，若 $ \omega(x) \equiv \frac {1} {m+1} $ 且 $ \varphi = span \lbrace 1, x \rbrace $ ，这种情形可得到线性回归的计算公式
 
 $$
-
+S(x) = a_0 + a_1 x \\
+a_0 = \frac {(m+1)\sum_{i=0}^m x_i y_i - \sum_{i=0}^m x_i \sum_{i=0}^m y_i} {(m+1)\sum_{i=0}^m x_i^2 - (\sum_{i=0}^m x_i)^2} \\
+a_1 = \frac {\sum_{i=0}^m x_i^2 \sum_{i=0}^m y_i - \sum_{i=0}^m x_i y_i \sum_{i=0}^m x_i} {(m+1)\sum_{i=0}^m x_i^2 - (\sum_{i=0}^m x_i)^2}
 $$
 
 * * *
