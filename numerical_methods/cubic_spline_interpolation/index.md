@@ -835,4 +835,169 @@ $$
 
 * * *
 
+附：追赶法解三对角系数矩阵线性方程组的C++实现
+```C++
+#include <vector>
+using std::vector;
+
+class LU_triple_diagonal_matrix_1
+{
+public:
+	LU_triple_diagonal_matrix_1(const vector<float>& a, const vector<float>& b, const vector<float>& c)
+	{
+		Set_triple_diagonal_matrix(a, b, c);
+	}
+
+	virtual ~LU_triple_diagonal_matrix_1()
+	{
+
+	}
+
+	virtual void Set_triple_diagonal_matrix(const vector<float>& a, const vector<float>& b, const vector<float>& c)
+	{
+		a_ = a;
+		b_ = b;
+		c_ = c;
+		n_ = int(b.size());
+		beta_.resize(n_ - 1);
+		y_.resize(n_);
+		beta_[0] = c_[0] / b_[0];
+		for (size_t i = 1; i < n_ - 1; i++)
+		{
+			beta_[i] = c_[i] / (b_[i] - a_[i] * beta_[i - 1]);
+		}
+	}
+
+	virtual bool Solve(const vector<float>& f, vector<float>& x)
+	{
+		if (n_ != f.size())
+		{
+			return false;
+		}
+		x.resize(n_);
+		y_[0] = f[0] / b_[0];
+		for (size_t i = 1; i < n_; i++)
+		{
+			y_[i] = (f[i] - a_[i] * y_[i - 1]) / (b_[i] - a_[i] * beta_[i - 1]);
+		}
+		x[n_ - 1] = y_[n_ - 1];
+		for (int i = n_ - 2; i >= 0; i--)
+		{
+			x[i] = y_[i] - beta_[i] * x[i + 1];
+		}
+		return true;
+	}
+
+private:
+	int n_;
+	vector<float> a_;
+	vector<float> b_;
+	vector<float> c_;
+	vector<float> beta_;
+	vector<float> y_;
+};
+
+class LU_triple_diagonal_matrix_2
+{
+public:
+	LU_triple_diagonal_matrix_2(const vector<float>& a, const vector<float>& b, const vector<float>& c)
+	{
+		Set_triple_diagonal_matrix(a, b, c);
+	}
+
+	virtual ~LU_triple_diagonal_matrix_2()
+	{
+
+	}
+
+	virtual ~LU_triple_diagonal_matrix_2()
+	{
+
+	}
+
+	virtual void Set_triple_diagonal_matrix(const vector<float>& a, const vector<float>& b, const vector<float>& c)
+	{
+		a_ = a;
+		b_ = b;
+		c_ = c;
+		n_ = int(b.size());
+		ld_.resize(n_);
+		ldd_.resize(n_ - 1);
+		lh_.resize(n_ - 2);
+		uud_.resize(n_ - 1);
+		uv_.resize(n_ - 2);
+		y_.resize(n_);
+		ld_[0] = b_[0];
+		uv_[0] = a_[0] / ld_[0];
+		uud_[0] = c_[0] / ld_[0];
+		for (size_t i = 1; i < n_ - 2; i++)
+		{
+			ldd_[i - 1] = a_[i];
+			ld_[i] = b_[i] - ldd_[i - 1] * uud_[i - 1];
+			uud_[i] = c_[i] / ld_[i];
+			uv_[i] = -ldd_[i - 1] * uv_[i - 1] / ld_[i];
+		}
+		ldd_[n_ - 3] = a_[n_ - 2];
+		ld_[n_ - 2] = b_[n_ - 2] - ldd_[n_ - 3] * uud_[n_ - 3];
+		uud_[n_ - 2] = (c_[n_ - 2] - ldd_[n_ - 3] * uv_[n_ - 3]) / ld_[n_ - 2];
+		lh_[0] = c_[n_ - 1];
+		for (size_t i = 1; i < n_ - 2; i++)
+		{
+			lh_[i] = -lh_[i - 1] * uud_[i - 1];
+		}
+		ldd_[n_ - 2] = a_[n_ - 1] - lh_[n_ - 3] * uud_[n_ - 3];
+		ld_[n_ - 1] = b_[n_ - 1];
+		for (size_t i = 0; i < n_ - 2; i++)
+		{
+			ld_[n_ - 1] -= lh_[i] * uv_[i];
+		}
+		ld_[n_ - 1] -= ldd_[n_ - 2] * uud_[n_ - 2];
+	}
+
+	virtual bool Solve(const vector<float>& f, vector<float>& x)
+	{
+		if (n_ != f.size())
+		{
+			return false;
+		}
+		x.resize(n_);
+		y_[0] = f[0] / ld_[0];
+		for (size_t i = 1; i < n_ - 1; i++)
+		{
+			y_[i] = (f[i] - ldd_[i - 1] * y_[i - 1]) / ld_[i];
+		}
+		y_[n_ - 1] = f[n_ - 1];
+		for (size_t i = 0; i < n_ - 2; i++)
+		{
+			y_[n_ - 1] -= lh_[i] * y_[i];
+		}
+		y_[n_ - 1] -= ldd_[n_ - 2] * y_[n_ - 2];
+		y_[n_ - 1] /= ld_[n_ - 1];
+
+		x[n_ - 1] = y_[n_ - 1];
+		x[n_ - 2] = y_[n_ - 2] - uud_[n_ - 2] * x[n_ - 1];
+		for (int i = n_ - 3; i >= 0; i--)
+		{
+			x[i] = y_[i] - uud_[i] * x[i + 1] - uv_[i] * x[n_ - 1];
+		}
+		return true;
+	}
+
+private:
+	int n_;
+	vector<float> a_;
+	vector<float> b_;
+	vector<float> c_;
+	vector<float> ld_;
+	vector<float> ldd_;
+	vector<float> lh_;
+	vector<float> uud_;
+	vector<float> uud_;
+	vector<float> uv_;
+	vector<float> y_;
+};
+```
+
+* * *
+
 [上一级](./../index.html)
