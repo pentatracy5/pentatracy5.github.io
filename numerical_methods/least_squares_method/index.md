@@ -154,4 +154,113 @@ $$
 
 * * *
 
+定义： $ \omega(x) $ 是 $ [a, b] $ 上的权函数，如果 $ \varphi_0(x), \varphi_1(x), ... , \varphi_n(x) \in C[a, b] $ 关于点集 $ \lbrace x_i, i = 0, 1, ... , m \rbrace $ 满足
+
+$$
+(\varphi_j, \varphi_k) = \sum_{i=0}^m \omega(x_i) \varphi_j(x_i) \varphi_k(x_i) = \begin{cases}
+0, j \neq k \\
+A_k > 0, j = k
+\end{cases}
+$$
+
+则称 $ \varphi_0(x), \varphi_1(x), ... , \varphi_n(x) $ 关于 $ \lbrace x_i \rbrace $ 带权 $ \omega(x_i) $ 正交。
+
+* * *
+
+若 $ \varphi_0(x), \varphi_1(x), ... , \varphi_n(x) \in C[a, b] $ 关于点集 $ \lbrace x_i, i = 0, 1, ... , m \rbrace $ 带权 $ \omega(x_i) (i = 0, 1, ... , m) $ 正交，则法方程的解为
+
+$$
+a_k^* = \frac {(f, \varphi_k)} {(\varphi_k, \varphi_k)} = \frac {\sum_{i=0}^m \omega(x_i) f(x_i) \varphi_k(x_i)} {\sum_{i=0}^m \omega(x_i) \varphi_k(x_i) \varphi_k(x_i)}, k = 0, 1, ... , n
+$$
+
+且平方误差为
+
+$$
+\sum_{i=0}^m \omega(x_i) \Big[ f(x_i) - S^* (x_i) \Big]^2 = \sum_{i=0}^m \omega(x_i) f(x_i)^2 - \sum_{k=0}^n A_k { a_k^* }^2
+$$
+
+* * *
+
+性质：给定点集 $ \lbrace x_i, i = 0, 1, ... , m \rbrace $ 和权函数 $ \omega(x) $ ，对 $ n \leqslant m $ ，按照如下定义的多项式 $ \lbrace P_k(x) \rbrace $ 关于给定点集带给定权正交
+
+$$
+\begin{aligned}
+&\begin{cases}
+P_0(x) = 1 \\
+P_1(x) = (x - \alpha_1) P_0(x) \\
+P_{k+1}(x) = (x - \alpha_{k+1}) P_k(x) - \beta_k P_{k-1}(x), k = 1, 2, ... , n-1
+\end{cases} \\
+&\begin{cases}
+\alpha_{k+1} = \frac {(x P_k, P_k)} {(P_k, P_k)}, k = 0, 1, ... , n-1 \\
+\beta_k = \frac {(P_k, P_k)} {(P_{k-1}, P_{k-1})}, k = 1, 2, ... , n-1
+\end{cases}
+\end{aligned}
+$$
+
+证明：用归纳法。
+
+首先易知
+
+$$
+(P_0, P_1) = (P_0, x P_0) - \alpha_1 (P_0, P_0) = (P_0, x P_0) - \frac {(x P_0, P_0)} {(P_0, P_0)} (P_0, P_0) = 0
+$$
+
+假定 $ P_0, P_1, ... , P_k $ 两两正交，往证 $ (P_{k+1}, P_s) = 0, s = 0, 1, ... , k $ 成立。易知
+
+$$
+(P_{k+1}, P_s) = ((x - \alpha_{k+1}) P_k, P_s) - (\beta_k P_{k-1}, P_s) = (x P_k, P_s) - \alpha_{k+1}(P_k, P_s) - \beta_k (P_{k-1}, P_s)
+$$
+
+当 $ 0 \leqslant s \leqslant k-2 $ 时，有
+
+$$
+(P_k, P_s) = (P_{k-1}, P_s) = 0
+$$
+
+又 $ x P_s $ 是首项系数为 $ 1 $ 的 $ s+1 (< k) $ 次多项式，可由 $ P_0, P_1, ... , P_{k-1} $ 线性表出，故
+
+$$
+(x P_k, P_s) = (P_k, x P_s) = 0
+$$
+
+从而
+
+$$
+(P_{k+1}, P_s) = 0
+$$
+
+当 $ s = k-1 $ 时，有
+
+$$
+(P_k, P_s) = (P_k, P_{k-1}) = 0
+$$
+
+并且类似的， $ x P_s = x P_{k-1} $ 可由 $ P_0, P_1, ... , P_k $ 线性表出，并且由首项系数可知， $ P_k $ 的系数为 $ 1 $ ，从而
+
+$$
+(x P_k, P_s) = (x P_k, P_{k-1}) = (P_k, x P_{k-1}) = (P_k, P_k)
+$$
+
+故
+
+$$
+(P_{k+1}, P_s) = (P_{k+1}, P_{k-1}) = (x P_k, P_{k-1}) - \beta_k (P_{k-1}, P_{k-1}) = (P_k, P_k) - \frac {(P_k, P_k)} {(P_{k-1}, P_{k-1})} (P_{k-1}, P_{k-1}) = 0
+$$
+
+当 $ s = k $ 时，有
+
+$$
+(P_{k+1}, P_s) = (P_{k+1}, P_k) = (x P_k, P_k) - \alpha_{k+1}(P_k, P_k) = (x P_k, P_k) - \frac {(x P_k, P_k)} {(P_k, P_k)} (P_k, P_k) = 0
+$$
+
+综上结论成立。
+
+* * *
+
+最小二乘多项式的C++实现
+```C++
+```
+
+* * *
+
 [上一级](./../index.html)
