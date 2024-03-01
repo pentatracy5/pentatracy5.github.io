@@ -290,14 +290,6 @@ public:
 
 	}
 
-			Set_data(x, y, omega, n);
-	}
-
-	virtual ~Least_squares_polynomial()
-	{
-
-	}
-
 	virtual void Set_data(const vector<float>& x, const vector<float>& y, const vector<float>& omega, size_t n)
 	{
 		x_ = x;
