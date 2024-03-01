@@ -259,6 +259,214 @@ $$
 
 最小二乘多项式的C++实现
 ```C++
+#include <vector>
+using std::vector;
+
+float Qinjiushao(const vector<float>& a, float x);
+
+class Least_squares_polynomial
+{
+public:
+	Least_squares_polynomial()
+	{
+		m_ = 0;
+		n_ = 0;
+	}
+
+	
+	Least_squares_polynomial()
+	{
+		m_ = 0;
+		n_ = 0;
+	}
+
+	Least_squares_polynomial(const vector<float>& x, const vector<float>& y, const vector<float>& omega, size_t n)
+	{
+		Set_data(x, y, omega, n);
+	}
+
+	virtual ~Least_squares_polynomial()
+	{
+
+	}
+
+			Set_data(x, y, omega, n);
+	}
+
+	virtual ~Least_squares_polynomial()
+	{
+
+	}
+
+	virtual void Set_data(const vector<float>& x, const vector<float>& y, const vector<float>& omega, size_t n)
+	{
+		x_ = x;
+		y_ = y;
+		omega_ = omega;
+		m_ = x_.size() - 1;
+		n_ = n <= m_ ? n : m_;
+		a_.resize(n_ + 1);
+		P_.resize(n_ + 1);
+		for (size_t k = 0; k <= n_; k++)
+		{
+			P_[k].resize(k + 1);
+		}
+
+		float dot1 = 0.f;	// (xP[k], P[k])
+		float dot2 = 0.f;	// (P[k], P[k])
+		float dot3 = 0.f;	// (f, P[k])
+		float dot4 = 0.f;	// (P[k-1], P[k-1])
+		float alpha = 0.f;	// dot1 / dot2
+		float beta = 0.f;	// dot2 / dot4
+
+		P_[0][0] = 1.f;
+		for (size_t i = 0; i <= m_; i++)
+		{
+			dot1 += omega_[i] * x_[i];
+			dot2 += omega_[i];
+			dot3 += omega_[i] * y_[i];
+		}
+		a_[0] = dot3 / dot2;
+		if (0 == n_)
+		{
+			return;
+		}
+		P_[1][0] = 1.f;
+		P_[1][1] = -dot1 / dot2;
+
+		for (size_t k = 1; k < n_; k++)
+		{
+			dot4 = dot2;
+			dot1 = 0.f;
+			dot2 = 0.f;
+			dot3 = 0.f;
+			for (size_t i = 0; i <= m_; i++)
+			{
+				float Pk_xi = Qinjiushao(P_[k], x_[i]);
+				dot1 += omega_[i] * x_[i] * Pk_xi * Pk_xi;
+				dot2 += omega_[i] * Pk_xi * Pk_xi;
+				dot3 += omega_[i] * y_[i] * Pk_xi;
+			}
+			alpha = dot1 / dot2;
+			beta = dot2 / dot4;
+			a_[k] = dot3 / dot2;
+
+			P_[k + 1][0] = 1.f;
+			P_[k + 1][1] = P_[k][1] - alpha;
+			for (size_t j = 2; j <= k; j++)
+			{
+				P_[k + 1][j] = P_[k][j] - alpha * P_[k][j - 1] - beta * P_[k - 1][j - 2];
+			}
+			P_[k + 1][k + 1] = -alpha * P_[k][k] - beta * P_[k - 1][k - 1];
+		}
+		dot2 = 0.f;
+		dot3 = 0.f;
+		for (size_t i = 0; i <= m_; i++)
+		{
+			float Pk_xi = Qinjiushao(P_[n_], x_[i]);
+			dot2 += omega_[i] * Pk_xi * Pk_xi;
+			dot3 += omega_[i] * y_[i] * Pk_xi;
+		}
+		a_[n_] = dot3 / dot2;
+	}
+
+	virtual void Set_n(size_t n)
+	{
+		n = n <= m_ ? n : m_;
+		a_.resize(n + 1);
+		P_.resize(n + 1);
+		for (size_t k = 0; k <= n; k++)
+		{
+			P_[k].resize(k + 1);
+		}
+
+		if (n > n_)
+		{
+			float dot1 = 0.f;	// (xP[k], P[k])
+			float dot2 = 0.f;	// (P[k], P[k])
+			float dot3 = 0.f;	// (f, P[k])
+			float dot4 = 0.f;	// (P[k-1], P[k-1])
+			float alpha = 0.f;	// dot1 / dot2
+			float beta = 0.f;	// dot2 / dot4
+
+			if (0 == n_)
+			{
+				for (size_t i = 0; i <= m_; i++)
+				{
+					dot1 += omega_[i] * x_[i];
+					dot2 += omega_[i];
+				}
+				P_[1][0] = 1.f;
+				P_[1][1] = -dot1 / dot2;
+				n_ = 1;
+			}
+			else
+			{
+				for (size_t i = 0; i <= m_; i++)
+				{
+					float Pk_xi = Qinjiushao(P_[n_ - 1], x_[i]);
+					dot2 += omega_[i] * Pk_xi * Pk_xi;
+				}
+			}
+
+			for (size_t k = n_; k < n; k++)
+			{
+				dot4 = dot2;
+				dot1 = 0.f;
+				dot2 = 0.f;
+				dot3 = 0.f;
+				for (size_t i = 0; i <= m_; i++)
+				{
+					float Pk_xi = Qinjiushao(P_[k], x_[i]);
+					dot1 += omega_[i] * x_[i] * Pk_xi * Pk_xi;
+					dot2 += omega_[i] * Pk_xi * Pk_xi;
+					dot3 += omega_[i] * y_[i] * Pk_xi;
+				}
+				alpha = dot1 / dot2;
+				beta = dot2 / dot4;
+				a_[k] = dot3 / dot2;
+
+				P_[k + 1][0] = 1.f;
+				P_[k + 1][1] = P_[k][1] - alpha;
+				for (size_t j = 2; j <= k; j++)
+				{
+					P_[k + 1][j] = P_[k][j] - alpha * P_[k][j - 1] - beta * P_[k - 1][j - 2];
+				}
+				P_[k + 1][k + 1] = -alpha * P_[k][k] - beta * P_[k - 1][k - 1];
+			}
+			dot2 = 0.f;
+			dot3 = 0.f;
+			for (size_t i = 0; i <= m_; i++)
+			{
+				float Pk_xi = Qinjiushao(P_[n], x_[i]);
+				dot2 += omega_[i] * Pk_xi * Pk_xi;
+				dot3 += omega_[i] * y_[i] * Pk_xi;
+			}
+			a_[n] = dot3 / dot2;
+		}
+
+		n_ = n;
+	}
+
+	virtual float Eval(float x)
+	{
+		float result = 0.f;
+		for (size_t k = 0; k <= n_; k++)
+		{
+			result += a_[k] * Qinjiushao(P_[k], x);
+		}
+		return result;
+	}
+
+private:
+	vector<float> x_;
+	vector<float> y_;
+	vector<float> omega_;
+	size_t m_;
+	size_t n_;
+	vector<vector<float>> P_;
+	vector<float> a_;
+};
 ```
 
 * * *
