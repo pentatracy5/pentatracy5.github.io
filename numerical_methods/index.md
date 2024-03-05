@@ -29,11 +29,7 @@ title: 数值计算
 
 [最小二乘法](./least_squares_method/index.html)
 
-3.5 有理逼近(78)
-
-3.5.1 有理逼近与连分式(78)
-
-3.5.2 帕德逼近(80)
+[有理逼近](./rational_approximation/index.html)
 
 3.6 三角多项式逼近与快速傅里叶变换(83)
 
