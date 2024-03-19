@@ -31,19 +31,9 @@ title: 数值计算
 
 [有理逼近](./rational_approximation/index.html)
 
-3.6 三角多项式逼近与快速傅里叶变换(83)
+[快速傅里叶变换](./fast_Fourier_transform/index.html)
 
-3.6.1 最佳平方三角逼近与三角插值(84)
-
-3.6.2 N点DFT与FFT算法(86)
-
-评注(92)
-
-复习与思考题(92)
-
-习题(94)
-
-计算实习题(95)
+[三角多项式逼近](./trigonometric_polynomial_approximation/index.html)
 
 第4章 数值积分与数值微分(97)
 
