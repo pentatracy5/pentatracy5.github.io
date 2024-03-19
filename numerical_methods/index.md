@@ -31,9 +31,9 @@ title: 数值计算
 
 [有理逼近](./rational_approximation/index.html)
 
-[快速傅里叶变换](./fast_Fourier_transform/index.html)
-
 [三角多项式逼近](./trigonometric_polynomial_approximation/index.html)
+
+[快速傅里叶变换](./fast_Fourier_transform/index.html)
 
 第4章 数值积分与数值微分(97)
 
