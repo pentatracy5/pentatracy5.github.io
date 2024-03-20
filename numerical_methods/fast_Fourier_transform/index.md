@@ -366,7 +366,7 @@ public:
 		w_.Clear();
 	}
 
-	void Transform_GPU(const bool inverse = false)
+	void Transform_GPU(const bool not_inverse = true)
 	{
 		unsigned int N = x_.size();
 		if (0 == N || 0 != (N & (N - 1))) return;
@@ -375,7 +375,7 @@ public:
 		w_.Device_malloc(N >> 1);
 
 		A1_.Memcpy(x_);
-		const Complex w = inverse ? Complex{ 0.f, -2.f * PI / N }.cexp() : Complex{ 0.f, 2.f * PI / N }.cexp();
+		const Complex w = not_inverse ? Complex{ 0.f, -2.f * PI / N }.cexp() : Complex{ 0.f, 2.f * PI / N }.cexp();
 		dim3 threads_per_blocks(256);
 		dim3 num_Blocks((w_.size() + threads_per_blocks.x - 1) / threads_per_blocks.x);
 		Calculate_w <<< num_Blocks, threads_per_blocks >>> (w_, w);
@@ -392,7 +392,7 @@ public:
 		}
 		if (0 == p % 2) A2_.Memcpy(A1_);
 
-		if (inverse)
+		if (not_inverse)
 		{
 			threads_per_blocks = { 256 };
 			num_Blocks = { (A2_.size() + threads_per_blocks.x - 1) / threads_per_blocks.x };
@@ -409,7 +409,7 @@ public:
 		w_.Clear();
 	}
 
-	void Transform_CPU(const bool inverse = false)
+	void Transform_CPU(const bool not_inverse = true)
 	{
 		unsigned int N = x_.size();
 		if (0 == N || 0 != (N & (N - 1))) return;
@@ -418,7 +418,7 @@ public:
 		w_.Host_malloc(N >> 1);
 
 		A1_.Memcpy(x_);
-		const Complex w = inverse ? Complex{ 0.f, -2.f * PI / N }.cexp() : Complex{ 0.f, 2.f * PI / N }.cexp();
+		const Complex w = not_inverse ? Complex{ 0.f, -2.f * PI / N }.cexp() : Complex{ 0.f, 2.f * PI / N }.cexp();
 		for (unsigned int i = 0; i < w_.size(); i++) w_.hat(i) = w.cpow(i);
 
 		unsigned int p = log2(N);
@@ -442,7 +442,7 @@ public:
 		}
 		if (0 == p % 2) A2_.Memcpy(A1_);
 
-		if (inverse)
+		if (not_inverse)
 		{
 			for (unsigned int i = 0; i < N; i++)
 			{
