@@ -3,6 +3,126 @@ layout: default
 title: 快速傅里叶变换
 ---
 
+假定 $ f, g : [0, 2\pi] \rightarrow \mathbb{C} $ 的内积定义为 $ \int_{0}^{2\pi} f(x) \overline{g(x)} dx $ ，则函数族 $ \lbrace 1, e^{ix}, \cdots, e^{i(N-1)x} \rbrace $ 在区间 $ [0, 2\pi] $ 上正交，并且在等距点集 $ x_j = \frac {2\pi j} {N}(j = 0, 1, \cdots, N-1) $ 上也正交。
+
+证明：由欧拉公式
+
+$$
+e^{ikx} = \cos kx + i \sin kx
+$$
+
+易知
+
+$$
+\int_{0}^{2\pi} e^{ikx} e^{-ilx} dx = \int_{0}^{2\pi} (\cos kx \cos lx + \sin kx \sin lx) + i(\cos lx \sin kx - \cos kx \sin lx) dx = \begin{cases}
+0, k\neq l \\
+2\pi, k = l
+\end{cases}
+$$
+
+并且
+
+$$
+\sum_{j=0}^{N-1} e^{ikx_j} e^{-ilx_j} = \sum_{j=0}^{N-1} e^{i(k-l)x_j} = \sum_{j=0}^{N-1} e^{i(k-l) \frac {2\pi j} {N}}
+$$
+
+令 $ r = e^{i(k-l) \frac {2\pi} {N}} $ ，若 $ k=l $ ，则 $ r=1 $ ，若 $ k \neq l $ ，则 $ r \neq 1, r^N = 1 $ ，从而
+
+$$
+\sum_{j=0}^{N-1} e^{ikx_j} e^{-ilx_j} = \sum_{j=0}^{N-1} r^j = \begin{cases}
+N, k = l \\
+\frac {1 - r^N} {1 - r} = 0, k \neq l
+\end{cases}
+$$
+
+结论成立。
+
+* * *
+
+假定 $ f : \mathbb{R} \rightarrow \mathbb{C} $ 是以 $ 2\pi $ 为周期的函数，给定 $ f(x) $ 在 $ N $ 个等分点 $ x_j = \frac {2\pi j} {N}(j = 0, 1, \cdots, N-1) $ 上的值 $ f_j = f(x_j) $ ，则 $ f(x) $ 在 $ N $ 个点 $ \lbrace x_j \rbrace $ 上的最小二乘傅里叶逼近为
+
+$$
+S(x) = \sum_{k=0}^{n-1} c_k e^{ikx}, n \leqslant N
+$$
+
+其中
+
+$$
+c_k = \frac {1} {N} \sum_{j=0}^{N-1} f_j e^{-ik \frac {2\pi j} {N}}, k = 0, 1, \cdots, n-1
+$$
+
+若 $ n=N $ ，则 $ S(x) $ 为 $ f(x) $ 在点 $ \lbrace x_j \rbrace $ 上的插值函数，即 $ S(x_j) = f_j $ ，从而有
+
+$$
+f_j = \sum_{k=0}^{N-1} c_k e^{ik \frac {2\pi j} {N}}, j = 0, 1, \cdots, N-1
+$$
+
+由 $ \lbrace f_j \rbrace $ 求 $ \lbrace c_k \rbrace $ 的过程称为 $ f(x) $ 的**离散傅里叶变换(DFT)**，由 $ \lbrace c_k \rbrace $ 求 $ \lbrace f_j \rbrace $ 的过程称为**反变换**。
+
+* * *
+
+若记
+
+$$
+\omega_N = e^{-i \frac {2\pi} {N}}
+$$
+
+则
+
+$$
+\omega_N^{N/2} = -1
+$$
+
+当 $ N = 2^p $ 时，对 $ j = 0, 1, \cdots, N-1 $ 有
+
+$$
+N c_j = \sum_{k=0}^{N-1} f_k \omega_N^{kj} = \sum_{k=0}^{N/2-1} f_k \omega_N^{kj} + \sum_{k=0}^{N/2-1} f_{k+N/2} \omega_N^{(k+N/2)j} = \sum_{k=0}^{N/2-1} [f_k + (-1)^j f_{k+N/2}] \omega_N^{kj}
+$$
+
+从而对 $ j $ 为偶数的情况有
+
+$$
+N c_j = \sum_{k=0}^{N/2-1} [f_k + f_{k+N/2}] \omega_N^{kj} = \sum_{k=0}^{N/2-1} [f_k + f_{k+N/2}] \omega_{N/2}^{kj/2}
+$$
+
+并且对 $ j $ 为奇数的情况有
+
+$$
+N c_j = \sum_{k=0}^{N/2-1} [f_k - f_{k+N/2}] \omega_N^{kj} = \sum_{k=0}^{N/2-1} [f_k - f_{k+N/2}] \omega_N^k \omega_N^{k(j-1)} = \sum_{k=0}^{N/2-1} [f_k - f_{k+N/2}] \omega_N^k \omega_{N/2}^{k(j-1)/2}
+$$
+
+若记 $ y_k = f_k + f_{k+N/2}, y_{k + N/2} = [f_k - f_{k+N/2}] \omega_N^k $ ，则有
+
+$$
+N c_j = \begin{cases}
+\sum_{k=0}^{N/2-1} y_k \omega_{N/2}^{kj/2}, j = 0, 2, \cdots, N-2 \\
+\sum_{k=0}^{N/2-1} y_{k + N/2} \omega_{N/2}^{k(j-1)/2}, j = 1, 3, \cdots, N-1
+\end{cases}
+$$
+
+可以观察到原DFT问题可以归结到两个系数不同的 $ {N/2} $ DFT问题，如此反复施行二分手续即为**快速傅里叶变换(FFT)**。
+
+* * *
+
+反变换问题同样可以应用FFT算法，只需要令 $ \omega_N = e^{i \frac {2\pi} {N}} $ ，并且最后不需要除以 $ N $ 。
+
+* * *
+
+求三角插值多项式的系数同样可以应该用FFT算法，不妨设 $ N = 2m+1 $ ，则只需要计算
+
+$$
+c_j = \frac {1} {2m+1} \sum_{k=0}^{2m} f_k \omega_{2m}^{kj} = \frac {1} {2m+1} \sum_{k=0}^{2m} f_k [\cos k \frac {2\pi j} {2m+1} - i \sin k \frac {2\pi j} {2m+1}] = \frac {a_j} {2} - i \frac {b_j} {2}
+$$
+
+则显然
+
+$$
+a_j = Re(2 c_j), j = 0, 1, \cdots, m \\
+b_j = -Im(2 c_j), j = 1, 2, \cdots, m
+$$
+
+* * *
+
 快速傅里叶变换的C++&CUDA实现
 ```CUDA
 #include "cuda_runtime.h"
