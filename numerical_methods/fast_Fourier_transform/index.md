@@ -123,7 +123,7 @@ $$
 
 * * *
 
-快速傅里叶变换的C++&CUDA实现
+快速傅里叶变换的非递归的C++&CUDA实现
 ```CUDA
 #include "cuda_runtime.h"
 #include "device_launch_parameters.h"
