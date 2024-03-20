@@ -108,17 +108,17 @@ $$
 
 * * *
 
-求三角插值多项式的系数同样可以应该用FFT算法，不妨设 $ N = 2m+1 $ ，则只需要计算
+求三角插值多项式的系数同样可以应该用FFT算法，只需要计算
 
 $$
-c_j = \frac {1} {2m+1} \sum_{k=0}^{2m} f_k \omega_{2m}^{kj} = \frac {1} {2m+1} \sum_{k=0}^{2m} f_k [\cos k \frac {2\pi j} {2m+1} - i \sin k \frac {2\pi j} {2m+1}] = \frac {a_j} {2} - i \frac {b_j} {2}
+c_j = \frac {1} {N} \sum_{k=0}^{N-1} f_k \omega_{N-1}^{kj} = \frac {1} {N} \sum_{k=0}^{N-1} f_k [\cos k \frac {2\pi j} {N} - i \sin k \frac {2\pi j} {N}] = \frac {a_j} {2} - i \frac {b_j} {2}
 $$
 
 则显然
 
 $$
-a_j = Re(2 c_j), j = 0, 1, \cdots, m \\
-b_j = -Im(2 c_j), j = 1, 2, \cdots, m
+a_j = Re(2 c_j), j = 0, 1, \cdots, N/2 \\
+b_j = -Im(2 c_j), j = 1, 2, \cdots, N/2-1
 $$
 
 * * *
