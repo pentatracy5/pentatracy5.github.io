@@ -3,7 +3,7 @@ layout: default
 title: 快速傅里叶变换
 ---
 
-假定 $ f, g : [0, 2\pi] \rightarrow \mathbb{C} $ 的内积定义为 $ \int_{0}^{2\pi} f(x) \overline{g(x)} dx $ ，则函数族 $ \lbrace 1, e^{ix}, \cdots, e^{i(N-1)x} \rbrace $ 在区间 $ [0, 2\pi] $ 上正交，并且在等距点集 $ x_j = \frac {2\pi j} {N}(j = 0, 1, \cdots, N-1) $ 上也正交。
+假定 $ f, g : C[0, 2\pi] \rightarrow \mathbb{C} $ 的内积定义为 $ \int_{0}^{2\pi} f(x) \overline{g(x)} dx $ ，则函数族 $ \lbrace 1, e^{ix}, \cdots, e^{i(N-1)x} \rbrace $ 在区间 $ [0, 2\pi] $ 上正交，并且在等距点集 $ x_j = \frac {2\pi j} {N}(j = 0, 1, \cdots, N-1) $ 上也正交。
 
 证明：由欧拉公式
 
